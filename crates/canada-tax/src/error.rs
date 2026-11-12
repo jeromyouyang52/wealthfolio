@@ -3,7 +3,7 @@ use thiserror::Error;
 
 pub type Result<T> = std::result::Result<T, Error>;
 
-#[derive(Debug, Error, PartialEq)]
+#[derive(Debug, Clone, Error, PartialEq)]
 pub enum Error {
     #[error("The rule table cannot be read: {0}")]
     InvalidRules(String),

@@ -10,12 +10,14 @@
 //! source it was checked against.
 
 pub mod acb;
+pub mod book;
 pub mod error;
 pub mod ledger;
 pub mod registration;
 pub mod rules;
 
 pub use acb::{to_cad, AcbPool, Disposition};
+pub use book::{FxRates, Issue, IssueReason, Position, TaxActivity, TaxActivityKind, TaxBook};
 pub use error::{Error, Result};
 pub use ledger::{
     summarize_year, DeemedGain, DispositionRecord, Event, EventKind, Ledger, YearSummary,
