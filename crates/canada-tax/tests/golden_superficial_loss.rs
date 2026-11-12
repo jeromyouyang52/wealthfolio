@@ -7,7 +7,7 @@ use rust_decimal::Decimal;
 use rust_decimal_macros::dec;
 
 fn day(month: u32, day: u32) -> NaiveDate {
-    NaiveDate::from_ymd_opt(2026, month, day).unwrap()
+    NaiveDate::from_ymd_opt(2026, month, day).expect("the cases use real dates")
 }
 
 fn buy(date: NaiveDate, units: Decimal, cost_cad: Decimal) -> Event {
@@ -35,8 +35,9 @@ fn registered_buy(date: NaiveDate, units: Decimal) -> Event {
 }
 
 fn compute(events: Vec<Event>) -> Ledger {
-    let rules = Rules::embedded().unwrap();
-    Ledger::compute(events, &rules.superficial_loss, day(12, 31)).unwrap()
+    let rules = Rules::embedded().expect("the embedded table loads");
+    Ledger::compute(events, &rules.superficial_loss, day(12, 31))
+        .expect("the case's history is valid")
 }
 
 /// 100 shares that cost 5,000, sold Nov 1 for 4,000: a 1,000 loss.
