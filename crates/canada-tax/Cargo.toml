@@ -1,0 +1,18 @@
+[package]
+name = "loontax-canada-tax"
+version.workspace = true
+edition.workspace = true
+description = "Canadian tax ledger for LoonTax: adjusted cost base, registered-plan rules and their yearly rule table"
+license = "AGPL-3.0"
+
+[dependencies]
+rust_decimal = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+rust_decimal_macros = { workspace = true }
+
+[lints]
+workspace = true

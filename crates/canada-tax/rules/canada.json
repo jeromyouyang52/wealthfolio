@@ -1,0 +1,39 @@
+{
+  "tfsa": {
+    "source": "https://www.investmentexecutive.com/industry-news/tfsa-dollar-limit-to-hold-steady-in-2026/",
+    "annualLimits": {
+      "2009": "5000", "2010": "5000", "2011": "5000", "2012": "5000",
+      "2013": "5500", "2014": "5500",
+      "2015": "10000",
+      "2016": "5500", "2017": "5500", "2018": "5500",
+      "2019": "6000", "2020": "6000", "2021": "6000", "2022": "6000",
+      "2023": "6500",
+      "2024": "7000", "2025": "7000", "2026": "7000"
+    },
+    "overContributionMonthlyRate": "0.01"
+  },
+  "rrsp": {
+    "source": "https://www.canada.ca/en/revenue-agency/services/tax/registered-plans-administrators/whats-new.html",
+    "dollarLimits": { "2025": "32490", "2026": "33810", "2027": "35390" },
+    "earnedIncomeRate": "0.18",
+    "overContributionBuffer": "2000",
+    "overContributionMonthlyRate": "0.01"
+  },
+  "fhsa": {
+    "source": "https://www.ctvnews.ca/business/article/christopher-liew-the-biggest-tax-and-benefit-changes-for-2026-you-shouldnt-be-sleeping-on/",
+    "firstYear": 2023,
+    "annualLimit": "8000",
+    "lifetimeLimit": "40000",
+    "maxCarryForward": "8000",
+    "overContributionMonthlyRate": "0.01"
+  },
+  "capitalGains": {
+    "source": "https://www.canada.ca/en/revenue-agency/news/newsroom/tax-tips/tax-tips-2025/update-cra-administration-proposed-capital-gains-taxation-changes.html",
+    "inclusionRates": [{ "fromYear": 2001, "rate": "0.5" }]
+  },
+  "superficialLoss": {
+    "source": "https://www.taxtips.ca/personaltax/investing/taxtreatment/superficial-losses-and-other-disallowed-losses.htm",
+    "daysBefore": 30,
+    "daysAfter": 30
+  }
+}
