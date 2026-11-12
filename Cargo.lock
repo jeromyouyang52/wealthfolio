@@ -8939,6 +8939,7 @@ dependencies = [
  "libc",
  "libsqlite3-sys",
  "log",
+ "loontax-canada-tax",
  "num-traits",
  "r2d2",
  "rand 0.10.3",

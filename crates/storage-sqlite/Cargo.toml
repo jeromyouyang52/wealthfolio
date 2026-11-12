@@ -17,6 +17,7 @@ wealthfolio-connect = { workspace = true }
 wealthfolio-device-sync = { workspace = true }
 wealthfolio-spending = { workspace = true }
 wealthfolio-market-data = { workspace = true }
+loontax-canada-tax = { path = "../canada-tax" }
 
 # Workspace dependencies
 tokio = { workspace = true }
