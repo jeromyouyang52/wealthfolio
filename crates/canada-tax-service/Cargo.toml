@@ -1,0 +1,22 @@
+[package]
+name = "loontax-canada-tax-service"
+version.workspace = true
+edition.workspace = true
+description = "LoonTax services around the Canadian tax ledger: the Bank of Canada rate source"
+license = "AGPL-3.0"
+
+[dependencies]
+async-trait = { workspace = true }
+chrono = { workspace = true }
+reqwest = { workspace = true }
+rust_decimal = { workspace = true }
+
+loontax-canada-tax = { path = "../canada-tax" }
+wealthfolio-http = { workspace = true }
+
+[dev-dependencies]
+rust_decimal_macros = { workspace = true }
+tokio = { workspace = true, features = ["macros", "rt", "net", "io-util"] }
+
+[lints]
+workspace = true
