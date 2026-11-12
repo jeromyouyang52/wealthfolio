@@ -21,10 +21,29 @@ use crate::rules::SuperficialLossRules;
 
 const CAD: &str = "CAD";
 
-/// Canadian dollars for one unit of a currency on a date. `None` when the
-/// rate is not known; it is never replaced by a nearby day's rate here.
+/// A rate and the day it was published for.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct FxQuote {
+    /// Canadian dollars for one unit of the currency.
+    pub cad_per_unit: Decimal,
+    pub rate_date: NaiveDate,
+}
+
+/// The rate to convert an amount of `date` with. A source may answer with an
+/// earlier day's rate when none was published for `date` (see
+/// [`crate::fx::RateTable`]); the book records each time that happens.
+/// `None` when no rate is known: none is made up.
 pub trait FxRates {
-    fn cad_per_unit(&self, currency: &str, date: NaiveDate) -> Option<Decimal>;
+    fn quote(&self, currency: &str, date: NaiveDate) -> Option<FxQuote>;
+}
+
+/// An activity converted with another day's rate.
+#[derive(Debug, Clone, PartialEq)]
+pub struct FxFallback {
+    pub activity_id: String,
+    pub currency: String,
+    pub date: NaiveDate,
+    pub rate_date: NaiveDate,
 }
 
 /// One recorded activity on a security, as the tax ledger needs it. Amounts
@@ -115,6 +134,8 @@ pub enum IssueReason {
 pub struct TaxBook {
     pub positions: Vec<Position>,
     pub issues: Vec<Issue>,
+    /// Conversions made with an earlier day's rate, for the report to state.
+    pub fx_fallbacks: Vec<FxFallback>,
 }
 
 #[derive(Default)]
@@ -123,6 +144,7 @@ struct Draft {
     /// Splits already taken, to count one split once across accounts.
     splits: Vec<(NaiveDate, Decimal)>,
     issue: Option<IssueReason>,
+    fx_fallbacks: Vec<FxFallback>,
 }
 
 impl TaxBook {
@@ -173,7 +195,17 @@ impl TaxBook {
             if draft.issue.is_some() {
                 continue;
             }
-            match event_for(activity, account, info, fx, &mut draft.splits) {
+            let mut fallback = None;
+            let event = event_for(
+                activity,
+                account,
+                info,
+                fx,
+                &mut draft.splits,
+                &mut fallback,
+            );
+            draft.fx_fallbacks.extend(fallback);
+            match event {
                 Ok(Some(kind)) => draft.events.push(Event {
                     date: activity.date,
                     kind,
@@ -191,11 +223,14 @@ impl TaxBook {
                 }
             };
             match outcome {
-                Ok(ledger) => book.positions.push(Position {
-                    holder,
-                    security_id,
-                    ledger,
-                }),
+                Ok(ledger) => {
+                    book.fx_fallbacks.extend(draft.fx_fallbacks);
+                    book.positions.push(Position {
+                        holder,
+                        security_id,
+                        ledger,
+                    });
+                }
                 Err(reason) => book.issues.push(Issue {
                     security_id,
                     holder: Some(holder),
@@ -204,6 +239,34 @@ impl TaxBook {
             }
         }
         book
+    }
+
+    /// The (currency, date) pairs `build` will ask the rates for: the money
+    /// activities in foreign currencies of classified non-registered accounts.
+    pub fn fx_needs(
+        activities: &[TaxActivity],
+        accounts: &HashMap<String, Option<CanadaAccountInfo>>,
+    ) -> BTreeSet<(String, NaiveDate)> {
+        activities
+            .iter()
+            .filter(|activity| !activity.currency.eq_ignore_ascii_case(CAD))
+            .filter(|activity| {
+                matches!(
+                    activity.kind,
+                    TaxActivityKind::Buy { .. }
+                        | TaxActivityKind::Sell { .. }
+                        | TaxActivityKind::ReturnOfCapital { .. }
+                        | TaxActivityKind::NotionalDistribution { .. }
+                )
+            })
+            .filter(|activity| {
+                accounts
+                    .get(&activity.account_id)
+                    .and_then(Option::as_ref)
+                    .is_some_and(|account| account.registration.counts_toward_acb())
+            })
+            .map(|activity| (activity.currency.to_ascii_uppercase(), activity.date))
+            .collect()
     }
 
     /// Securities with at least one issue.
@@ -223,9 +286,10 @@ fn event_for<'a>(
     info: impl Fn(&str) -> Option<&'a CanadaAccountInfo>,
     fx: &dyn FxRates,
     splits: &mut Vec<(NaiveDate, Decimal)>,
+    fallback: &mut Option<FxFallback>,
 ) -> Result<Option<EventKind>, IssueReason> {
     let taxable = account.registration.counts_toward_acb();
-    let cad = |amount: Decimal| -> Result<Decimal, IssueReason> {
+    let mut cad = |amount: Decimal| -> Result<Decimal, IssueReason> {
         if activity.currency.eq_ignore_ascii_case(CAD) {
             return Ok(amount);
         }
@@ -233,10 +297,18 @@ fn event_for<'a>(
             currency: activity.currency.clone(),
             date: activity.date,
         };
-        let rate = fx
-            .cad_per_unit(&activity.currency, activity.date)
+        let quote = fx
+            .quote(&activity.currency, activity.date)
             .ok_or_else(missing)?;
-        to_cad(amount, rate).map_err(|_| missing())
+        if quote.rate_date != activity.date {
+            *fallback = Some(FxFallback {
+                activity_id: activity.id.clone(),
+                currency: activity.currency.clone(),
+                date: activity.date,
+                rate_date: quote.rate_date,
+            });
+        }
+        to_cad(amount, quote.cad_per_unit).map_err(|_| missing())
     };
 
     Ok(match &activity.kind {

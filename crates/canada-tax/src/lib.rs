@@ -12,13 +12,18 @@
 pub mod acb;
 pub mod book;
 pub mod error;
+pub mod fx;
 pub mod ledger;
 pub mod registration;
 pub mod rules;
 
 pub use acb::{to_cad, AcbPool, Disposition};
-pub use book::{FxRates, Issue, IssueReason, Position, TaxActivity, TaxActivityKind, TaxBook};
+pub use book::{
+    FxFallback, FxQuote, FxRates, Issue, IssueReason, Position, TaxActivity, TaxActivityKind,
+    TaxBook,
+};
 pub use error::{Error, Result};
+pub use fx::{parse_observations, series_name, RateTable, MAX_RATE_AGE_DAYS};
 pub use ledger::{
     summarize_year, DeemedGain, DispositionRecord, Event, EventKind, Ledger, YearSummary,
 };

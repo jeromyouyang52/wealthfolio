@@ -11,6 +11,9 @@ pub enum Error {
     #[error("The account's Canadian settings cannot be read: {0}")]
     InvalidAccountSettings(String),
 
+    #[error("Bank of Canada rates cannot be read: {0}")]
+    InvalidRates(String),
+
     #[error("{0} must be greater than zero")]
     NotPositive(&'static str),
 

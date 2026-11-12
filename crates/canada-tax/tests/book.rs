@@ -5,8 +5,8 @@ use std::collections::HashMap;
 
 use chrono::NaiveDate;
 use loontax_canada_tax::{
-    CanadaAccountInfo, FxRates, IssueReason, Registration, Rules, TaxActivity, TaxActivityKind,
-    TaxBook,
+    CanadaAccountInfo, FxQuote, FxRates, IssueReason, RateTable, Registration, Rules, TaxActivity,
+    TaxActivityKind, TaxBook,
 };
 use rust_decimal::Decimal;
 use rust_decimal_macros::dec;
@@ -18,10 +18,15 @@ fn day(month: u32, day: u32) -> NaiveDate {
 struct Rates(Vec<(NaiveDate, Decimal)>);
 
 impl FxRates for Rates {
-    fn cad_per_unit(&self, currency: &str, date: NaiveDate) -> Option<Decimal> {
-        (currency == "USD")
-            .then(|| self.0.iter().find(|(d, _)| *d == date).map(|(_, r)| *r))
-            .flatten()
+    fn quote(&self, currency: &str, date: NaiveDate) -> Option<FxQuote> {
+        if currency != "USD" {
+            return None;
+        }
+        let (rate_date, cad_per_unit) = self.0.iter().find(|(d, _)| *d == date)?;
+        Some(FxQuote {
+            cad_per_unit: *cad_per_unit,
+            rate_date: *rate_date,
+        })
     }
 }
 
@@ -325,4 +330,60 @@ fn a_history_that_does_not_add_up_is_an_issue() {
         book.issues[0].reason,
         IssueReason::InvalidHistory(_)
     ));
+}
+
+/// Sold on Canada Day, when the Bank of Canada publishes no rate: June 30's
+/// rate converts the sale, and the book says so.
+/// Cost US$1,001 at 1.35 = 1,351.35; proceeds US$1,099 at 1.3672 = 1,502.5528;
+/// gain 151.2028.
+#[test]
+fn a_trade_on_a_day_without_a_rate_is_converted_and_reported() {
+    let usd = |mut a: TaxActivity| {
+        a.currency = "USD".to_string();
+        a
+    };
+    let trades = [
+        usd(activity(
+            "broker-1",
+            "VTI",
+            day(3, 2),
+            buy(dec!(10), dec!(1001)),
+        )),
+        usd(activity(
+            "broker-1",
+            "VTI",
+            day(7, 1),
+            sell(dec!(10), dec!(1099)),
+        )),
+        usd(activity("tfsa", "VTI", day(7, 1), buy(dec!(5), dec!(550)))),
+    ];
+    assert_eq!(
+        TaxBook::fx_needs(&trades, &accounts()),
+        [
+            ("USD".to_string(), day(3, 2)),
+            ("USD".to_string(), day(7, 1))
+        ]
+        .into()
+    );
+
+    let mut table = RateTable::new();
+    table.insert("USD", day(3, 2), dec!(1.35));
+    table.insert("USD", day(6, 30), dec!(1.3672));
+    let rules = Rules::embedded().expect("the embedded table loads");
+    let book = TaxBook::build(
+        &trades,
+        &accounts(),
+        &table,
+        &rules.superficial_loss,
+        day(12, 31),
+    );
+
+    assert!(book.issues.is_empty());
+    assert_eq!(
+        book.positions[0].ledger.dispositions[0].gain_cad,
+        dec!(151.2028)
+    );
+    assert_eq!(book.fx_fallbacks.len(), 1);
+    assert_eq!(book.fx_fallbacks[0].date, day(7, 1));
+    assert_eq!(book.fx_fallbacks[0].rate_date, day(6, 30));
 }
