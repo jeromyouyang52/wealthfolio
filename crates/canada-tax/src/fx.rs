@@ -24,6 +24,12 @@ use crate::error::{Error, Result};
 /// gap means rates are missing, not that the Bank was closed.
 pub const MAX_RATE_AGE_DAYS: u64 = 7;
 
+/// The first day the Bank's daily rates exist for. Earlier trades need a rate
+/// from another source.
+pub fn first_rate_day() -> NaiveDate {
+    NaiveDate::from_ymd_opt(2017, 1, 3).expect("2017-01-03 is a real date")
+}
+
 /// The Valet series for a currency, such as `FXUSDCAD`.
 pub fn series_name(currency: &str) -> Result<String> {
     let code = currency.trim().to_ascii_uppercase();

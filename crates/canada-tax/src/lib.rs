@@ -13,6 +13,7 @@ pub mod acb;
 pub mod book;
 pub mod error;
 pub mod fx;
+pub mod fx_sync;
 pub mod ledger;
 pub mod registration;
 pub mod rules;
@@ -24,6 +25,7 @@ pub use book::{
 };
 pub use error::{Error, Result};
 pub use fx::{parse_observations, series_name, RateTable, MAX_RATE_AGE_DAYS};
+pub use fx_sync::{load_rates, FetchFailure, LoadedRates, RateSource, RateStore};
 pub use ledger::{
     summarize_year, DeemedGain, DispositionRecord, Event, EventKind, Ledger, YearSummary,
 };

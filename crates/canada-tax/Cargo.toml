@@ -6,6 +6,7 @@ description = "Canadian tax ledger for LoonTax: adjusted cost base, registered-p
 license = "AGPL-3.0"
 
 [dependencies]
+async-trait = { workspace = true }
 chrono = { workspace = true }
 rust_decimal = { workspace = true }
 serde = { workspace = true }
@@ -13,6 +14,7 @@ serde_json = { workspace = true }
 thiserror = { workspace = true }
 
 [dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt"] }
 rust_decimal_macros = { workspace = true }
 
 [lints]

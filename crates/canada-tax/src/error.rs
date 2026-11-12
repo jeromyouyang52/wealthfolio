@@ -14,6 +14,12 @@ pub enum Error {
     #[error("Bank of Canada rates cannot be read: {0}")]
     InvalidRates(String),
 
+    #[error("Bank of Canada rates could not be fetched: {0}")]
+    RateFetch(String),
+
+    #[error("Stored Bank of Canada rates could not be read or written: {0}")]
+    RateStore(String),
+
     #[error("{0} must be greater than zero")]
     NotPositive(&'static str),
 
