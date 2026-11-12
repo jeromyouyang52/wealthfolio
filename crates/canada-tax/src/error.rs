@@ -17,6 +17,9 @@ pub enum Error {
     #[error("{0} cannot be negative")]
     Negative(&'static str),
 
+    #[error("The position holds no units")]
+    NoUnitsHeld,
+
     #[error("Cannot dispose of {requested} units: the pool holds {held}")]
     InsufficientUnits { requested: Decimal, held: Decimal },
 }

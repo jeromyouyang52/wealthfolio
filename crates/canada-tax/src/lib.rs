@@ -11,10 +11,14 @@
 
 pub mod acb;
 pub mod error;
+pub mod ledger;
 pub mod registration;
 pub mod rules;
 
 pub use acb::{to_cad, AcbPool, Disposition};
 pub use error::{Error, Result};
+pub use ledger::{
+    summarize_year, DeemedGain, DispositionRecord, Event, EventKind, Ledger, YearSummary,
+};
 pub use registration::{CanadaAccountInfo, Registration, CANADA_META_KEY, DEFAULT_HOLDER};
 pub use rules::Rules;

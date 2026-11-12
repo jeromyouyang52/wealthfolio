@@ -5,9 +5,8 @@
 //! therefore belongs to a (holder, security) pair, and the caller feeds it the
 //! trades of all that holder's non-registered accounts in date order.
 //!
-//! This module covers acquisitions and dispositions. Splits, returns of
-//! capital, reinvested distributions and the superficial loss rule are added
-//! on top of it with their own hand-worked cases.
+//! The pool is the arithmetic of one position. The dated history, and the
+//! superficial loss rule that needs to look ahead in it, are in `ledger`.
 
 use rust_decimal::Decimal;
 
@@ -70,6 +69,44 @@ impl AcbPool {
         self.units += units;
         self.total_cad += cost_cad;
         Ok(())
+    }
+
+    /// Multiplies the units by a split ratio (2 for a 2-for-1 split, 0.1 for a
+    /// 1-for-10 consolidation). The total cost does not change.
+    pub fn split(&mut self, ratio: Decimal) -> Result<()> {
+        if ratio <= Decimal::ZERO {
+            return Err(Error::NotPositive("A split ratio"));
+        }
+        self.units *= ratio;
+        Ok(())
+    }
+
+    /// Adds to the cost without adding units: a reinvested (notional)
+    /// distribution, or a superficial loss carried into the shares kept.
+    pub fn increase_cost(&mut self, amount_cad: Decimal) -> Result<()> {
+        if amount_cad < Decimal::ZERO {
+            return Err(Error::Negative("An increase of cost"));
+        }
+        if self.units <= Decimal::ZERO {
+            return Err(Error::NoUnitsHeld);
+        }
+        self.total_cad += amount_cad;
+        Ok(())
+    }
+
+    /// Reduces the cost by a return of capital. The cost cannot go below
+    /// zero: the amount beyond it is returned, and is a capital gain of the
+    /// year it was received.
+    pub fn return_of_capital(&mut self, amount_cad: Decimal) -> Result<Decimal> {
+        if amount_cad < Decimal::ZERO {
+            return Err(Error::Negative("A return of capital"));
+        }
+        if self.units <= Decimal::ZERO {
+            return Err(Error::NoUnitsHeld);
+        }
+        let excess = (amount_cad - self.total_cad).max(Decimal::ZERO);
+        self.total_cad = (self.total_cad - amount_cad).max(Decimal::ZERO);
+        Ok(excess)
     }
 
     /// Removes units at the pool's average cost. `net_proceeds_cad` is the sale

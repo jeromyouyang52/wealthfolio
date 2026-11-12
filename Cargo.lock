@@ -3911,6 +3911,7 @@ checksum = "5d15f86d12da44cd8d4ec3c73984537eb7f4cadcb9776a575a0a8a05ca11005c"
 name = "loontax-canada-tax"
 version = "3.13.0"
 dependencies = [
+ "chrono",
  "rust_decimal",
  "rust_decimal_macros",
  "serde",
