@@ -10,6 +10,7 @@ async-trait = { workspace = true }
 chrono = { workspace = true }
 reqwest = { workspace = true }
 rust_decimal = { workspace = true }
+serde = { workspace = true }
 
 loontax-canada-tax = { path = "../canada-tax" }
 wealthfolio-core = { workspace = true }

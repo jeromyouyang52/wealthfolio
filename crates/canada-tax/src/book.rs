@@ -12,6 +12,7 @@ use std::collections::{BTreeMap, BTreeSet, HashMap};
 
 use chrono::NaiveDate;
 use rust_decimal::Decimal;
+use serde::Serialize;
 
 use crate::acb::to_cad;
 use crate::error::Error;
@@ -38,7 +39,8 @@ pub trait FxRates {
 }
 
 /// An activity converted with another day's rate.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct FxFallback {
     pub activity_id: String,
     pub currency: String,

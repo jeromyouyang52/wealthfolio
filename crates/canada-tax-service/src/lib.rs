@@ -3,6 +3,8 @@
 
 pub mod activities;
 pub mod bank_of_canada;
+pub mod report;
 
 pub use activities::tax_activities;
 pub use bank_of_canada::BankOfCanada;
+pub use report::{tax_report, TaxReport};

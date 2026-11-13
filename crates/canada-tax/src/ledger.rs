@@ -27,6 +27,7 @@
 
 use chrono::{Datelike, Days, NaiveDate};
 use rust_decimal::Decimal;
+use serde::Serialize;
 
 use crate::acb::AcbPool;
 use crate::error::{Error, Result};
@@ -71,7 +72,8 @@ pub enum EventKind {
     },
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct DispositionRecord {
     pub date: NaiveDate,
     pub units: Decimal,
@@ -99,7 +101,8 @@ impl DispositionRecord {
 }
 
 /// A capital gain with no sale: a return of capital beyond the cost.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct DeemedGain {
     pub date: NaiveDate,
     pub gain_cad: Decimal,
@@ -323,7 +326,8 @@ fn kept_after_loss(
 }
 
 /// One tax year of one ledger, as it goes on a capital gains schedule.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct YearSummary {
     pub year: i32,
     /// Gains, deemed gains included.
