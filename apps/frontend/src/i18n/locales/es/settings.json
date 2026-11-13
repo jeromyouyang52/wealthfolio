@@ -570,7 +570,26 @@
     "mode_switch_checklist_accurate": "Las fechas, cantidades y precios son correctos",
     "mode_switch_checklist_gaps": "Los huecos en el historial provocarán saldos y rentabilidades incorrectos",
     "mode_switch_keep_holdings": "Conservar posiciones",
-    "mode_switch_confirm": "Cambiar a Transacciones"
+    "mode_switch_confirm": "Cambiar a Transacciones",
+    "form_canada_title": "Canadian tax",
+    "form_canada_registration_label": "CRA registration",
+    "form_canada_registration_description": "Tells the tax report whether trades in this account are taxable. An account left unset is kept out of the report.",
+    "form_canada_registration_unset": "Not set",
+    "form_canada_registration_non_registered": "Non-registered (taxable)",
+    "form_canada_registration_tfsa": "TFSA",
+    "form_canada_registration_rrsp": "RRSP",
+    "form_canada_registration_spousal_rrsp": "Spousal RRSP",
+    "form_canada_registration_fhsa": "FHSA",
+    "form_canada_registration_resp": "RESP",
+    "form_canada_registration_lira": "LIRA",
+    "form_canada_registration_rrif": "RRIF",
+    "form_canada_holder_label": "Account holder",
+    "form_canada_holder_description": "Identical securities are averaged per holder, across all of that holder's non-registered accounts.",
+    "form_canada_holder_self": "Me",
+    "form_canada_holder_spouse": "Spouse or partner",
+    "form_canada_suggestion": "Your broker reports this account as {{registration}}.",
+    "form_canada_use_suggestion": "Use it",
+    "form_canada_unreadable": "The stored setting could not be read. Choose a registration to replace it."
   },
   "limits": {
     "day_left": "{{days}} d restantes"

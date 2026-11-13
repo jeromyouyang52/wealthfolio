@@ -46,6 +46,7 @@ import SpendingSettingsEventsPage from "./pages/settings/spending/events/spendin
 import SpendingSettingsRulesPage from "./pages/settings/spending/rules/spending-rules-page";
 import SpendingSetupPage from "./pages/settings/spending/setup/spending-setup-page";
 import GoalsDashboardPage from "@/features/goals/pages/goals-dashboard-page";
+import TaxReportPage from "@/features/canada/pages/tax-report-page";
 import GoalNewPage from "@/features/goals/pages/goal-new-page";
 import GoalDetailPage from "@/features/goals/pages/goal-detail-page";
 import GoalRetirementGuidePage from "@/features/goals/pages/goal-retirement-guide-page";
@@ -110,6 +111,7 @@ export const AppScreenRoutes = memo(function AppScreenRoutes({ location }: AppSc
       <Route path="assistant" element={<AiAssistantPage />} />
       <Route path="connect" element={<ConnectPage />} />
       <Route path="allocation-targets" element={<Navigate to="/insights?tab=overview" replace />} />
+      <Route path="tax" element={<TaxReportPage />} />
       <Route path="goals" element={<GoalsDashboardPage />} />
       <Route path="goals/new" element={<GoalNewPage />} />
       <Route path="goals/:goalId/guide" element={<GoalRetirementGuidePage />} />

@@ -50,6 +50,7 @@ import { Icons } from "@wealthfolio/ui/components/ui/icons";
 import { Input } from "@wealthfolio/ui/components/ui/input";
 import { Label } from "@wealthfolio/ui/components/ui/label";
 
+import { CanadaRegistrationField } from "@/features/canada/components/canada-registration-field";
 import { useAccountMutations } from "./use-account-mutations";
 
 const CASH_ALLOCATION_DEFAULT_VALUE = "__default__";
@@ -679,6 +680,21 @@ export function AccountForm({
                 </FormItem>
               )}
             />
+            {!isCashAccount && !isCreditCardAccount && (
+              <section className={formCardClassName}>
+                <h3 className={formSectionLabelClassName}>
+                  {t("settings:accounts.form_canada_title")}
+                </h3>
+                <div className="mt-4">
+                  <CanadaRegistrationField
+                    meta={currentMeta}
+                    onMetaChange={(updatedMeta) =>
+                      form.setValue("meta", updatedMeta, { shouldDirty: true })
+                    }
+                  />
+                </div>
+              </section>
+            )}
             <section className={formCardClassName}>
               <h3 className={formSectionLabelClassName}>
                 {t("settings:accounts.form_visibility")}

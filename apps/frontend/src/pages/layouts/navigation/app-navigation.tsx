@@ -63,6 +63,13 @@ function buildStaticNavigation(t: TFunction): NavigationProps {
         label: t("common:nav.label_goals"),
       },
       {
+        icon: <Icons.FileText className="size-6" />,
+        title: t("canada:nav_title"),
+        href: "/tax",
+        keywords: ["tax", "acb", "capital gains", "cra", "canada", "tfsa", "rrsp"],
+        label: t("canada:nav_label"),
+      },
+      {
         icon: <Icons.Sparkles className="size-6" />,
         title: t("common:assistant"),
         href: "/assistant",

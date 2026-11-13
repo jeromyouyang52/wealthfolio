@@ -1,0 +1,67 @@
+{
+  "nav_title": "稅務",
+  "nav_label": "加拿大稅務報告",
+  "title": "稅務",
+  "subtitle": "你的非註冊帳戶的調整後成本基礎（ACB）和資本利得，以加幣計。",
+  "disclaimer": "僅供參考，不構成稅務或投資建議。報稅前請對照你自己的紀錄核對數字，一切以 CRA 的規定為準。",
+  "as_of": "截至 {{date}}",
+  "error": "稅務報告計算失敗。",
+  "empty_title": "目前沒有可報告的內容",
+  "empty_description": "先在設定裡為帳戶選好 CRA 註冊類型，再輸入這些帳戶的交易。",
+  "empty_action": "開啟帳戶設定",
+  "holder_self": "本人",
+  "holder_spouse": "配偶或伴侶",
+  "years": {
+    "title": "各年資本利得",
+    "year": "年份",
+    "gains": "利得",
+    "losses": "虧損",
+    "denied": "被否認的虧損",
+    "net": "淨額",
+    "taxable": "應稅額",
+    "provisional": "暫定",
+    "provisional_tip": "有一筆虧損賣出距這份報告不足 30 天。之後買回同一證券，這筆虧損仍可能被否認。",
+    "needs_review": "需複核",
+    "needs_review_tip": "有一筆被否認的虧損，依留下的股份在註冊帳戶內外的數量做了分攤。請找會計師確認。",
+    "without_rate": "{{years}} 年沒有已知的計入比例，這些年份未顯示。"
+  },
+  "positions": {
+    "title": "調整後成本基礎",
+    "security": "證券",
+    "units": "數量",
+    "acb_total": "ACB 總額",
+    "acb_per_unit": "每股 ACB"
+  },
+  "dispositions": {
+    "title": "賣出紀錄",
+    "date": "日期",
+    "security": "證券",
+    "units": "數量",
+    "proceeds": "淨收入",
+    "acb": "ACB",
+    "gain": "利得或虧損",
+    "denied": "被否認",
+    "denied_lost": "{{amount}} 永久作廢：在註冊帳戶裡買回",
+    "denied_carried": "{{amount}} 已加到留下股份的成本上",
+    "deemed": "超出成本的資本返還"
+  },
+  "issues": {
+    "title": "未計入報告",
+    "description": "這些證券不在上面任何合計裡。",
+    "security": "證券",
+    "reason": "原因",
+    "UNCLASSIFIED_ACCOUNT": "持有它的帳戶沒有設定 CRA 註冊類型：{{account}}",
+    "MISSING_FX_RATE": "{{date}} 沒有 {{currency}} 的加拿大銀行匯率",
+    "UNSUPPORTED_TRANSFER": "有一筆轉倉不是在持有人自己的兩個同類帳戶之間進行",
+    "UNREADABLE_ACTIVITY": "有一筆紀錄不完整、未確認，或屬於暫不支援的類型",
+    "CONFLICTING_SPLITS": "{{date}} 前後，各帳戶記錄的拆股比例不一致",
+    "INVALID_HISTORY": "交易紀錄對不上：{{detail}}"
+  },
+  "fx": {
+    "title": "匯率",
+    "fallbacks": "用了更早一天加拿大銀行匯率折算的交易：{{count}} 筆",
+    "fallback_row": "{{date}} 的 {{currency}} 交易用了 {{rateDate}} 的匯率",
+    "failure": "未能從加拿大銀行取得 {{currency}} 在 {{from}} 至 {{to}} 的匯率，已使用本機儲存的匯率。"
+  },
+  "unreadable_accounts": "這些帳戶儲存的註冊類型無法讀取：{{accounts}}"
+}

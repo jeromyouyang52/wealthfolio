@@ -567,7 +567,26 @@
     "mode_switch_checklist_accurate": "日期、數量與價格都正確無誤",
     "mode_switch_checklist_gaps": "歷史紀錄若有缺漏，餘額與報酬可能不正確",
     "mode_switch_keep_holdings": "保留持有部位",
-    "mode_switch_confirm": "切換到交易"
+    "mode_switch_confirm": "切換到交易",
+    "form_canada_title": "加拿大稅務",
+    "form_canada_registration_label": "CRA 註冊類型",
+    "form_canada_registration_description": "告訴稅務報告這個帳戶裡的交易是否應稅。未設定的帳戶不會計入報告。",
+    "form_canada_registration_unset": "未設定",
+    "form_canada_registration_non_registered": "非註冊（應稅）",
+    "form_canada_registration_tfsa": "TFSA",
+    "form_canada_registration_rrsp": "RRSP",
+    "form_canada_registration_spousal_rrsp": "配偶 RRSP",
+    "form_canada_registration_fhsa": "FHSA",
+    "form_canada_registration_resp": "RESP",
+    "form_canada_registration_lira": "LIRA",
+    "form_canada_registration_rrif": "RRIF",
+    "form_canada_holder_label": "帳戶持有人",
+    "form_canada_holder_description": "同一持有人名下所有非註冊帳戶裡的相同證券，合併計算平均成本。",
+    "form_canada_holder_self": "本人",
+    "form_canada_holder_spouse": "配偶或伴侶",
+    "form_canada_suggestion": "券商顯示這個帳戶是 {{registration}}。",
+    "form_canada_use_suggestion": "採用",
+    "form_canada_unreadable": "已儲存的設定無法讀取。請重新選擇註冊類型。"
   },
   "limits": {
     "day_left": "剩餘 {{days}} 天"

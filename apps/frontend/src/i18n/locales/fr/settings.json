@@ -572,7 +572,26 @@
     "mode_switch_checklist_accurate": "Les dates, quantités et prix sont exacts",
     "mode_switch_checklist_gaps": "Les lacunes dans l'historique entraîneront des soldes et rendements incorrects",
     "mode_switch_keep_holdings": "Conserver les positions",
-    "mode_switch_confirm": "Passer aux transactions"
+    "mode_switch_confirm": "Passer aux transactions",
+    "form_canada_title": "Impôt canadien",
+    "form_canada_registration_label": "Enregistrement auprès de l'ARC",
+    "form_canada_registration_description": "Indique au rapport fiscal si les opérations de ce compte sont imposables. Un compte non défini est exclu du rapport.",
+    "form_canada_registration_unset": "Non défini",
+    "form_canada_registration_non_registered": "Non enregistré (imposable)",
+    "form_canada_registration_tfsa": "CELI",
+    "form_canada_registration_rrsp": "REER",
+    "form_canada_registration_spousal_rrsp": "REER de conjoint",
+    "form_canada_registration_fhsa": "CELIAPP",
+    "form_canada_registration_resp": "REEE",
+    "form_canada_registration_lira": "CRI",
+    "form_canada_registration_rrif": "FERR",
+    "form_canada_holder_label": "Titulaire du compte",
+    "form_canada_holder_description": "Le coût des titres identiques est établi en moyenne par titulaire, sur l'ensemble de ses comptes non enregistrés.",
+    "form_canada_holder_self": "Moi",
+    "form_canada_holder_spouse": "Conjoint",
+    "form_canada_suggestion": "Votre courtier indique que ce compte est de type {{registration}}.",
+    "form_canada_use_suggestion": "Utiliser",
+    "form_canada_unreadable": "Le réglage enregistré est illisible. Choisissez un enregistrement pour le remplacer."
   },
   "limits": {
     "day_left": "{{days}}j restants"

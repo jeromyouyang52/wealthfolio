@@ -1,0 +1,67 @@
+{
+  "nav_title": "Impôt",
+  "nav_label": "Rapport fiscal canadien",
+  "title": "Impôt",
+  "subtitle": "Prix de base rajusté et gains en capital de vos comptes non enregistrés, en dollars canadiens.",
+  "disclaimer": "À titre indicatif seulement. Ceci n'est pas un conseil fiscal ni un conseil en placement. Vérifiez les chiffres avec vos propres registres avant de produire votre déclaration ; les règles de l'ARC font foi.",
+  "as_of": "Au {{date}}",
+  "error": "Le rapport fiscal n'a pas pu être calculé.",
+  "empty_title": "Rien à déclarer pour l'instant",
+  "empty_description": "Définissez l'enregistrement de vos comptes auprès de l'ARC dans les réglages, puis saisissez leurs opérations.",
+  "empty_action": "Ouvrir les réglages des comptes",
+  "holder_self": "Moi",
+  "holder_spouse": "Conjoint",
+  "years": {
+    "title": "Gains en capital par année",
+    "year": "Année",
+    "gains": "Gains",
+    "losses": "Pertes",
+    "denied": "Pertes refusées",
+    "net": "Net",
+    "taxable": "Imposable",
+    "provisional": "Provisoire",
+    "provisional_tip": "Une perte a été réalisée moins de 30 jours avant ce rapport. Racheter le titre peut encore la faire refuser.",
+    "needs_review": "À vérifier",
+    "needs_review_tip": "Une perte refusée a été répartie entre des actions conservées dans des régimes enregistrés et hors de ceux-ci. Vérifiez ce point avec un comptable.",
+    "without_rate": "Aucun taux d'inclusion n'est connu pour {{years}}. Ces années ne sont pas affichées."
+  },
+  "positions": {
+    "title": "Prix de base rajusté",
+    "security": "Titre",
+    "units": "Unités",
+    "acb_total": "PBR total",
+    "acb_per_unit": "PBR par unité"
+  },
+  "dispositions": {
+    "title": "Dispositions",
+    "date": "Date",
+    "security": "Titre",
+    "units": "Unités",
+    "proceeds": "Produit net",
+    "acb": "PBR",
+    "gain": "Gain ou perte",
+    "denied": "Refusé",
+    "denied_lost": "{{amount}} perdus définitivement : rachat dans un régime enregistré",
+    "denied_carried": "{{amount}} ajoutés au coût des actions conservées",
+    "deemed": "Remboursement de capital supérieur au coût"
+  },
+  "issues": {
+    "title": "Exclus du rapport",
+    "description": "Ces titres ne figurent dans aucun des totaux ci-dessus.",
+    "security": "Titre",
+    "reason": "Motif",
+    "UNCLASSIFIED_ACCOUNT": "Un compte qui le détient n'a pas d'enregistrement défini auprès de l'ARC : {{account}}",
+    "MISSING_FX_RATE": "Aucun taux de la Banque du Canada pour {{currency}} le {{date}}",
+    "UNSUPPORTED_TRANSFER": "Un transfert qui n'a pas lieu entre deux comptes de même nature du titulaire",
+    "UNREADABLE_ACTIVITY": "Une opération incomplète, non confirmée ou d'un type non encore pris en charge",
+    "CONFLICTING_SPLITS": "Les comptes indiquent des ratios de fractionnement différents vers le {{date}}",
+    "INVALID_HISTORY": "Les opérations saisies ne concordent pas : {{detail}}"
+  },
+  "fx": {
+    "title": "Taux de change",
+    "fallbacks": "Opérations converties au taux de la Banque du Canada d'un jour antérieur : {{count}}",
+    "fallback_row": "L'opération en {{currency}} du {{date}} a utilisé le taux du {{rateDate}}",
+    "failure": "Les taux pour {{currency}} du {{from}} au {{to}} n'ont pas pu être obtenus auprès de la Banque du Canada. Les taux déjà enregistrés ont été utilisés."
+  },
+  "unreadable_accounts": "L'enregistrement de ces comptes est illisible : {{accounts}}"
+}

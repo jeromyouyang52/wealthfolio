@@ -567,7 +567,26 @@
     "mode_switch_checklist_accurate": "日期、数量和价格均准确无误",
     "mode_switch_checklist_gaps": "历史记录的空缺将导致余额和收益不正确",
     "mode_switch_keep_holdings": "保留持仓",
-    "mode_switch_confirm": "切换到交易"
+    "mode_switch_confirm": "切换到交易",
+    "form_canada_title": "加拿大税务",
+    "form_canada_registration_label": "CRA 注册类型",
+    "form_canada_registration_description": "告诉税务报告这个账户里的交易是否应税。未设置的账户不会计入报告。",
+    "form_canada_registration_unset": "未设置",
+    "form_canada_registration_non_registered": "非注册（应税）",
+    "form_canada_registration_tfsa": "TFSA",
+    "form_canada_registration_rrsp": "RRSP",
+    "form_canada_registration_spousal_rrsp": "配偶 RRSP",
+    "form_canada_registration_fhsa": "FHSA",
+    "form_canada_registration_resp": "RESP",
+    "form_canada_registration_lira": "LIRA",
+    "form_canada_registration_rrif": "RRIF",
+    "form_canada_holder_label": "账户持有人",
+    "form_canada_holder_description": "同一持有人名下所有非注册账户里的相同证券，合并计算平均成本。",
+    "form_canada_holder_self": "本人",
+    "form_canada_holder_spouse": "配偶或伴侣",
+    "form_canada_suggestion": "券商显示这个账户是 {{registration}}。",
+    "form_canada_use_suggestion": "采用",
+    "form_canada_unreadable": "已保存的设置无法读取。请重新选择注册类型。"
   },
   "limits": {
     "day_left": "剩余 {{days}} 天"

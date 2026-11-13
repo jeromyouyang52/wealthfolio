@@ -1,0 +1,67 @@
+{
+  "nav_title": "Tax",
+  "nav_label": "Canadian tax report",
+  "title": "Tax",
+  "subtitle": "Adjusted cost base and capital gains across your non-registered accounts, in Canadian dollars.",
+  "disclaimer": "For information only. This is not tax or investment advice. Check the figures against your own records before you file; the CRA's rules decide.",
+  "as_of": "As of {{date}}",
+  "error": "The tax report could not be computed.",
+  "empty_title": "Nothing to report yet",
+  "empty_description": "Set the CRA registration of your accounts in Settings, then record their trades.",
+  "empty_action": "Open account settings",
+  "holder_self": "Me",
+  "holder_spouse": "Spouse or partner",
+  "years": {
+    "title": "Capital gains by year",
+    "year": "Year",
+    "gains": "Gains",
+    "losses": "Losses",
+    "denied": "Denied losses",
+    "net": "Net",
+    "taxable": "Taxable",
+    "provisional": "Provisional",
+    "provisional_tip": "A loss was sold less than 30 days before this report. Buying the security back can still deny it.",
+    "needs_review": "Review",
+    "needs_review_tip": "A denied loss was split between shares kept inside and outside registered plans. Check this with an accountant.",
+    "without_rate": "No inclusion rate is known for {{years}}. Those years are not shown."
+  },
+  "positions": {
+    "title": "Adjusted cost base",
+    "security": "Security",
+    "units": "Units",
+    "acb_total": "Total ACB",
+    "acb_per_unit": "ACB per unit"
+  },
+  "dispositions": {
+    "title": "Dispositions",
+    "date": "Date",
+    "security": "Security",
+    "units": "Units",
+    "proceeds": "Net proceeds",
+    "acb": "ACB",
+    "gain": "Gain or loss",
+    "denied": "Denied",
+    "denied_lost": "{{amount}} lost for good: bought back in a registered plan",
+    "denied_carried": "{{amount}} added to the cost of the shares kept",
+    "deemed": "Return of capital beyond the cost"
+  },
+  "issues": {
+    "title": "Left out of the report",
+    "description": "These securities are in none of the totals above.",
+    "security": "Security",
+    "reason": "Reason",
+    "UNCLASSIFIED_ACCOUNT": "An account that holds it has no CRA registration set: {{account}}",
+    "MISSING_FX_RATE": "No Bank of Canada rate for {{currency}} on {{date}}",
+    "UNSUPPORTED_TRANSFER": "A transfer that is not between two of the holder's accounts of the same kind",
+    "UNREADABLE_ACTIVITY": "A record that is incomplete, unconfirmed, or of a kind not handled yet",
+    "CONFLICTING_SPLITS": "Accounts record different split ratios around {{date}}",
+    "INVALID_HISTORY": "The recorded trades do not add up: {{detail}}"
+  },
+  "fx": {
+    "title": "Exchange rates",
+    "fallbacks": "Trades converted with an earlier day's Bank of Canada rate: {{count}}",
+    "fallback_row": "{{currency}} trade of {{date}} used the rate of {{rateDate}}",
+    "failure": "Rates for {{currency}} from {{from}} to {{to}} could not be fetched from the Bank of Canada. Stored rates were used."
+  },
+  "unreadable_accounts": "The registration stored on these accounts could not be read: {{accounts}}"
+}
