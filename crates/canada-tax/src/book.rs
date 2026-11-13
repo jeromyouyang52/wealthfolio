@@ -88,6 +88,9 @@ pub enum TaxActivityKind {
         units: Decimal,
         paired_account_id: Option<String>,
     },
+    /// A record on the security that cannot be turned into one of the kinds
+    /// above: a field is missing, or it is something not handled yet.
+    Unreadable,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -120,6 +123,10 @@ pub enum IssueReason {
     /// A transfer that is not between two of the holder's accounts of the
     /// same kind: its cost, or the deemed sale it may be, has to be entered.
     UnsupportedTransfer {
+        activity_id: String,
+    },
+    /// A record that is incomplete or of a kind not handled yet.
+    UnreadableActivity {
         activity_id: String,
     },
     /// Two accounts record splits a day apart or less with different ratios.
@@ -348,6 +355,11 @@ fn event_for<'a>(
         TaxActivityKind::NotionalDistribution { amount } if taxable => {
             Some(EventKind::NotionalDistribution {
                 amount_cad: cad(*amount)?,
+            })
+        }
+        TaxActivityKind::Unreadable => {
+            return Err(IssueReason::UnreadableActivity {
+                activity_id: activity.id.clone(),
             })
         }
         // Inside a registered plan the cost is not tracked.

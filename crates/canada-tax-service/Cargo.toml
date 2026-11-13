@@ -2,7 +2,7 @@
 name = "loontax-canada-tax-service"
 version.workspace = true
 edition.workspace = true
-description = "LoonTax services around the Canadian tax ledger: the Bank of Canada rate source"
+description = "LoonTax services around the Canadian tax ledger: the Bank of Canada rate source and the reading of recorded activities"
 license = "AGPL-3.0"
 
 [dependencies]
@@ -12,9 +12,11 @@ reqwest = { workspace = true }
 rust_decimal = { workspace = true }
 
 loontax-canada-tax = { path = "../canada-tax" }
+wealthfolio-core = { workspace = true }
 wealthfolio-http = { workspace = true }
 
 [dev-dependencies]
+serde_json = { workspace = true }
 rust_decimal_macros = { workspace = true }
 tokio = { workspace = true, features = ["macros", "rt", "net", "io-util"] }
 
