@@ -22,6 +22,7 @@ pub mod fire;
 pub mod goal;
 pub mod health;
 pub mod limits;
+pub mod loontax;
 pub mod market_data;
 pub mod mcp;
 pub mod platform;

@@ -435,6 +435,7 @@ pub fn run() {
             commands::limits::calculate_deposits_for_contribution_limit,
             commands::limits::get_contribution_limit_details,
             commands::limits::set_contribution_activity_excluded,
+            commands::loontax::get_tax_report,
             commands::cloud_backups::cloud_backup_action,
             commands::cloud_backups::cloud_backup_capture,
             commands::cloud_backups::cloud_backup_download,

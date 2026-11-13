@@ -12,6 +12,7 @@ use rust_decimal::Decimal;
 use serde::Serialize;
 use wealthfolio_core::accounts::Account;
 use wealthfolio_core::activities::Activity;
+use wealthfolio_core::utils::time_utils::activity_date_in_user_timezone;
 
 use crate::activities::tax_activities;
 
@@ -75,6 +76,20 @@ pub struct RateFailure {
     pub from: NaiveDate,
     pub to: NaiveDate,
     pub detail: String,
+}
+
+/// The report as of now, with the rule table shipped in this build and the
+/// Bank of Canada as the rate source. Both runtimes call this.
+pub async fn current_tax_report(
+    accounts: &[Account],
+    activities: &[Activity],
+    timezone: &str,
+    store: &dyn RateStore,
+) -> Result<TaxReport> {
+    let rules = Rules::embedded()?;
+    let bank = crate::bank_of_canada::BankOfCanada::new()?;
+    let today = activity_date_in_user_timezone(chrono::Utc::now(), timezone);
+    tax_report(accounts, activities, timezone, &rules, store, &bank, today).await
 }
 
 /// Computes the report from everything recorded. Fetches the Bank of Canada

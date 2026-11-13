@@ -1,6 +1,7 @@
 # 产品开发总提示词 —— 加拿大投资者持仓与税务助手（暂定名：LoonTax）
 
-> 用法：把整份文档交给你的 AI 编程助手（Claude Code / Kiro / Cursor 等），作为项目的总纲。
+> 用法：把整份文档交给你的 AI 编程助手（Claude Code / Kiro /
+> Cursor 等），作为项目的总纲。
 > 每开一个新会话，都先让它读这份文档和仓库里的 `AGENTS.md`。
 
 ---
@@ -11,6 +12,7 @@
 目标：**6 个月内上线并拿到第一批付费用户**。产品必须是纯软件，卖给个人投资者（B2C）。
 
 工作方式：
+
 - 先读代码、再提计划、最后动手。每个任务开始前给出简短计划，写明：复用什么、新增什么、推迟什么、怎么验证。
 - 优先做最小可用的改动，不做投机性的抽象，不重构与任务无关的代码。
 - 涉及税务计算的每一条规则都必须有测试，测试用例写成人工可核对的数字。
@@ -20,46 +22,66 @@
 
 ## 1. 产品一句话
 
-**一个本地优先、保护隐私的投资追踪 App，帮加拿大个人投资者自动算清 ACB（调整后成本基础）、资本利得、Superficial Loss（表面亏损），以及 TFSA / RRSP / FHSA 的剩余供款额度；再用 AI 把这些数字讲明白。**
+**一个本地优先、保护隐私的投资追踪 App，帮加拿大个人投资者自动算清 ACB（调整后成本基础）、资本利得、Superficial
+Loss（表面亏损），以及 TFSA / RRSP /
+FHSA 的剩余供款额度；再用 AI 把这些数字讲明白。**
 
 ### 目标用户
-- 在加拿大、自己用 Wealthsimple / Questrade / IBKR / 银行券商（TD、RBC 等）买股票和 ETF 的个人投资者。
+
+- 在加拿大、自己用 Wealthsimple / Questrade / IBKR
+  / 银行券商（TD、RBC 等）买股票和 ETF 的个人投资者。
 - 有**非注册账户**（需要报资本利得），或同时有多个注册账户、怕超额供款的人。
 - 现在靠 Excel、adjustedcostbase.ca 或者干脆不算的人。
 
 ### 要解决的痛点（按优先级）
-1. 报税季要算 ACB 和资本利得。券商给的成本数据经常不对：跨券商转仓后成本丢失、美元交易要换汇、有 ROC（资本返还）和 Phantom Distribution（再投资分配）调整。
-2. 做 Tax-loss harvesting（亏损收割）时，不小心触发 Superficial Loss 规则，亏损被否认。
+
+1. 报税季要算 ACB 和资本利得。券商给的成本数据经常不对：跨券商转仓后成本丢失、美元交易要换汇、有 ROC（资本返还）和 Phantom
+   Distribution（再投资分配）调整。
+2. 做 Tax-loss harvesting（亏损收割）时，不小心触发 Superficial
+   Loss 规则，亏损被否认。
 3. TFSA 超额供款要按每月 1% 罚款，用户经常搞不清自己还剩多少额度。
 
 ### 竞品（要做出差异化）
+
 - adjustedcostbase.ca：专做 ACB，但只能手动录入，没有持仓追踪，也没有 AI。
 - Richify、PrivateACB 等：各自只做额度追踪或 ACB 中的一块。
-- 我们的差异：**持仓追踪 + ACB + 额度 + AI 解释，全部在一个本地优先的 App 里，能直接导入券商 CSV。**
+- 我们的差异：**持仓追踪 + ACB + 额度 +
+  AI 解释，全部在一个本地优先的 App 里，能直接导入券商 CSV。**
 
 ---
 
 ## 2. 起点代码库：Fork Wealthfolio
 
 基于 `https://github.com/wealthfolio/wealthfolio`（AGPL-3.0）。技术栈：
+
 - 前端：React + TypeScript，位于 `apps/frontend/`；UI 组件在 `packages/ui`
-- 后端：Rust，位于 `crates/`（core、portfolio-engine、storage-sqlite、ai、connect、market-data 等）
+- 后端：Rust，位于
+  `crates/`（core、portfolio-engine、storage-sqlite、ai、connect、market-data 等）
 - 运行时：Tauri 负责桌面和移动端，Axum 负责自托管 Web（`apps/server`）
 - 数据库：SQLite，本地优先
 - 插件系统：`packages/addon-sdk`
 
 ### 必须遵守的约束
+
 1. **许可证 AGPL-3.0**：我们的修改必须开源。商业护城河只能靠：加拿大税务规则的准确性和每年更新、券商导入的覆盖面、托管和同步服务、报税报告、品牌和信任。代码本身不是护城河。
-2. **商标**：Wealthfolio 的商标政策禁止 fork 版本使用其名称和 Logo。必须全面改名：App 名称、图标、包标识（bundle id）、网站、应用商店信息。可以写 "Based on Wealthfolio"，并在 About 页致谢、链接上游。
-3. **遵守仓库里的 `AGENTS.md`**：架构边界、adapter 模式、加迁移前要说明理由，等等。
-4. **跟上游保持可合并**：加拿大功能尽量放在独立的模块或 crate 里（例如 `crates/canada-tax/`、`apps/frontend/src/features/canada/`），少改上游的核心文件，方便以后 rebase 上游的更新。
+2. **商标**：Wealthfolio 的商标政策禁止 fork 版本使用其名称和 Logo。必须全面改名：App 名称、图标、包标识（bundle
+   id）、网站、应用商店信息。可以写 "Based on
+   Wealthfolio"，并在 About 页致谢、链接上游。
+3. **遵守仓库里的
+   `AGENTS.md`**：架构边界、adapter 模式、加迁移前要说明理由，等等。
+4. **跟上游保持可合并**：加拿大功能尽量放在独立的模块或 crate 里（例如
+   `crates/canada-tax/`、`apps/frontend/src/features/canada/`），少改上游的核心文件，方便以后 rebase 上游的更新。
 
 ### 已有的、可复用的模块（先读懂再动手）
-- `crates/portfolio-engine/`：上游引擎已支持按账户设置成本法（FIFO 默认、LIFO、HIFO、WAC 加权平均），也支持 ROC 和再投资分配。但它明确不支持跨账户合并成本池和 Superficial Loss（规则文档 R7.3）。这两项加上 CAD 折算、报税报告、额度规则，由独立的 `crates/canada-tax` 负责，**不改引擎**。
+
+- `crates/portfolio-engine/`：上游引擎已支持按账户设置成本法（FIFO 默认、LIFO、HIFO、WAC 加权平均），也支持 ROC 和再投资分配。但它明确不支持跨账户合并成本池和 Superficial
+  Loss（规则文档 R7.3）。这两项加上 CAD 折算、报税报告、额度规则，由独立的
+  `crates/canada-tax` 负责，**不改引擎**。
 - `crates/core/src/lots/`：引擎结果的持久化（`lots`、`lot_disposals`）。
 - `crates/core/src/limits/`：已有通用的"供款额度"功能，可以作为 TFSA/RRSP/FHSA 额度的基础来扩展。
 - `crates/core/src/fx/`：汇率服务。
-- `crates/ai/`、`crates/agent-tools/`（里面已有 `contribution_limits.rs`）：AI 助手和工具调用。
+- `crates/ai/`、`crates/agent-tools/`（里面已有
+  `contribution_limits.rs`）：AI 助手和工具调用。
 - `crates/connect/`：券商同步（上游通过 SnapTrade 接入，SnapTrade 支持 Wealthsimple、Questrade 等加拿大券商）。
 
 ---
@@ -67,15 +89,20 @@
 ## 3. MVP 功能范围
 
 ### P0：没有这些不能上线
-1. **加拿大账户注册类型**：TFSA、RRSP、Spousal RRSP、FHSA、RESP、LIRA、RRIF、非注册。存在账户 `meta.canada` 里（注册类型 + 持有人），不新增 account_type。没标记的账户不参与任何税务计算。
+
+1. **加拿大账户注册类型**：TFSA、RRSP、Spousal
+   RRSP、FHSA、RESP、LIRA、RRIF、非注册。存在账户 `meta.canada`
+   里（注册类型 + 持有人），不新增 account_type。没标记的账户不参与任何税务计算。
 2. **ACB 引擎**（规格见第 4 节）。
 3. **Superficial Loss 检测**（见第 4 节）。
-4. **年度资本利得报告**：按证券列出出售日期、数量、处置收入（Proceeds）、ACB、费用、利得/亏损、被否认的亏损，对应 Schedule 3 的格式。可导出 CSV 和 PDF。
+4. **年度资本利得报告**：按证券列出出售日期、数量、处置收入（Proceeds）、ACB、费用、利得/亏损、被否认的亏损，对应 Schedule
+   3 的格式。可导出 CSV 和 PDF。
 5. **TFSA / RRSP / FHSA 额度追踪**（见第 5 节），超额时给出明显警告。
 6. **券商 CSV 导入**：先做 Wealthsimple 和 Questrade，再做 IBKR。每种格式都要有样例文件和测试。
 7. **改名和重新打包**：桌面端（macOS/Windows）能安装运行。
 
 ### P1：上线后 1～2 个月内
+
 - AI 助手（规格见第 6 节）
 - ROC、Phantom Distribution 的年底调整（输入 T3/T5 或 CDS 数据）
 - 跨券商转仓保留 ACB
@@ -83,6 +110,7 @@
 - 双语 UI（英文、法文）
 
 ### P2：之后
+
 - 夫妻（关联人）合并检测 Superficial Loss
 - 加密货币的 ACB
 - iOS 端、托管同步
@@ -93,20 +121,28 @@
 
 ## 4. ACB 与资本利得规则规格（P0 核心，必须精确）
 
-> 所有数字和规则放进一个**带年份、带来源链接的规则表**（例如 `crates/canada-tax/rules/` 下的 JSON/TOML 文件），不要硬编码在逻辑里。每年税务规则变化时只改数据。
+> 所有数字和规则放进一个**带年份、带来源链接的规则表**（例如
+> `crates/canada-tax/rules/`
+> 下的 JSON/TOML 文件），不要硬编码在逻辑里。每年税务规则变化时只改数据。
 
 ### 4.1 ACB 计算
-- 方法：**加权平均成本**。同一纳税人在**所有非注册账户**里持有的同一证券（identical property）要合并成一个池子计算，不按账户分开。
+
+- 方法：**加权平均成本**。同一纳税人在**所有非注册账户**里持有的同一证券（identical
+  property）要合并成一个池子计算，不按账户分开。
 - 注册账户（TFSA/RRSP/FHSA/RESP 等）里的持仓**不计入** ACB 池子。
 - 买入：`ACB_total += 数量 × 价格 + 佣金/费用`（全部换算成 CAD）
-- 卖出：`本次卖出的 ACB = 卖出数量 × (ACB_total / 持有总数量)`；`资本利得 = 处置收入 − 卖出费用 − 本次卖出的 ACB`；然后 `ACB_total` 和持有数量都相应减少。
-- 外币交易：税务计算统一用**交易当日**的加拿大银行（Bank of Canada）日汇率换算成 CAD（已决定；需要新增这个数据源。结算日和交易日的选择做成设置项，默认交易日）。买入和卖出分别按各自日期的汇率换算。
+- 卖出：`本次卖出的 ACB = 卖出数量 × (ACB_total / 持有总数量)`；`资本利得 = 处置收入 − 卖出费用 − 本次卖出的 ACB`；然后
+  `ACB_total` 和持有数量都相应减少。
+- 外币交易：税务计算统一用**交易当日**的加拿大银行（Bank of
+  Canada）日汇率换算成 CAD（已决定；需要新增这个数据源。结算日和交易日的选择做成设置项，默认交易日）。买入和卖出分别按各自日期的汇率换算。
 - 拆股、合股：数量变化，ACB_total 不变。
 - ROC：减少 ACB_total；如果 ACB 被减到负数，负的部分视为当年的资本利得，ACB 归零。
 - Phantom / 再投资分配：增加 ACB_total。
-- 资本利得计入比例（inclusion rate）：放在规则表里，按年份配置；目前为 50%。2024 年提出的上调已于 2025 年 3 月 21 日取消（2026-11-12 已核实，来源见规则表）。
+- 资本利得计入比例（inclusion
+  rate）：放在规则表里，按年份配置；目前为 50%。2024 年提出的上调已于 2025 年 3 月 21 日取消（2026-11-12 已核实，来源见规则表）。
 
 ### 4.2 Superficial Loss 规则
+
 - 触发条件：以亏损卖出某证券后，在**卖出日前后各 30 天（共 61 天的窗口）**内，纳税人或关联人（含配偶、本人的注册账户）买入了相同证券，并且在窗口结束时（卖出后第 30 天）仍然持有。
 - 被否认的亏损：`SL = (S、P、B 三者中的最小值) / S × L`
   - S = 卖出的数量
@@ -120,44 +156,57 @@
 ### 4.3 黄金测试用例（必须全部通过，数字可人工核对）
 
 **用例 A：基本 ACB**
+
 1. 1 月 10 日买 100 股 @ $30，佣金 $5 → ACB_total = 3,005，每股 30.05
-2. 3 月 1 日买 50 股 @ $32，佣金 $5 → ACB_total = 4,610，持有 150 股，每股 30.7333
-3. 6 月 1 日卖 60 股 @ $35，佣金 $5 → 处置收入净额 2,095；本次 ACB = 60 × 4,610 / 150 = 1,844；**资本利得 = 251**；剩余 90 股，ACB_total = 2,766
+2. 3 月 1 日买 50 股 @ $32，佣金 $5 → ACB_total =
+   4,610，持有 150 股，每股 30.7333
+3. 6 月 1 日卖 60 股 @ $35，佣金 $5 → 处置收入净额 2,095；本次 ACB = 60 × 4,610
+   / 150 = 1,844；**资本利得 = 251**；剩余 90 股，ACB_total = 2,766
 
 **用例 B：Superficial Loss 全部否认**
+
 - 持有 100 股，ACB_total = 5,000。11 月 1 日卖 100 股 @ $40 → 亏损 1,000
 - 11 月 20 日在**非注册账户**买回 100 股 @ $41，12 月 1 日仍持有
 - S=100, P=100, B=100 → 被否认的亏损 = 1,000；可用亏损 = 0
 - 新持仓 ACB_total = 4,100 + 1,000 = **5,100**
 
 **用例 C：Superficial Loss 部分否认**
+
 - 同用例 B，但只买回 40 股 @ $41，窗口结束时持有 40 股
 - min(100, 40, 40) / 100 × 1,000 = **400 被否认**；可用亏损 = 600
 - 新 40 股的 ACB_total = 40 × 41 + 400 = **2,040**
 
 **用例 D：在 TFSA 里买回**
-- 同用例 B，但在 **TFSA** 里买回 → 被否认 1,000，**永久丢失**；TFSA 里的持仓没有 ACB；UI 显示红色警告
+
+- 同用例 B，但在 **TFSA**
+  里买回 → 被否认 1,000，**永久丢失**；TFSA 里的持仓没有 ACB；UI 显示红色警告
 
 **用例 E：美元交易**
-- 用固定汇率测试数据：买入当天 USD/CAD = 1.35，卖出当天 = 1.40，验证 ACB 和处置收入分别按各自日期换算
+
+- 用固定汇率测试数据：买入当天 USD/CAD = 1.35，卖出当天 =
+  1.40，验证 ACB 和处置收入分别按各自日期换算
 
 ---
 
 ## 5. 供款额度规格（数字放进规则表）
 
 ### TFSA
+
 - 每年额度历史：2009–2012 每年 $5,000；2013–2014 每年 $5,500；2015 年 $10,000；2016–2018 每年 $5,500；2019–2022 每年 $6,000；2023 年 $6,500；2024–2026 每年 $7,000。从 2009 年起一直符合资格、从未供款的人，2026 年累计额度为 $109,000。
 - 额度从 18 岁且是加拿大居民的那一年开始累积。新移民从成为居民的那一年开始。
-- 今年的额度 = 今年的年度额度 + 以前未用完的额度 + **上一年的取款额**（今年取的款，明年 1 月 1 日才恢复额度）。
+- 今年的额度 = 今年的年度额度 + 以前未用完的额度 +
+  **上一年的取款额**（今年取的款，明年 1 月 1 日才恢复额度）。
 - 超额部分按每月 1% 罚税。超额时显示红色警告和预估罚款。
 - 用户可以输入 CRA My Account 显示的额度作为起点，覆盖系统算出的数字。
 
 ### RRSP
+
 - 2026 年上限：上一年劳动收入的 18%，最高 $33,810（2027 年为 $35,390）。实际额度以 CRA 评估通知书（NOA）上的数字为准，**让用户手动输入 NOA 上的数字**，不要自己从收入推算。
 - 累计超额 $2,000 以内不罚；超过部分按每月 1% 罚税。
 - 提示当年前 60 天的供款可以抵上一年的税。
 
 ### FHSA
+
 - 每年 $8,000，终身 $40,000。开户后才开始累积额度；未用完的额度最多可以结转 $8,000 到下一年（所以单年最多 $16,000）。
 - 超额按每月 1% 罚税。
 - 显示账户的 15 年期限 / 71 岁截止提醒。
@@ -166,10 +215,13 @@
 
 ## 6. AI 助手规格（P1）
 
-- 复用 `crates/ai` 和 `crates/agent-tools`，新增工具：`get_acb(symbol)`、`get_realized_gains(year)`、`check_superficial_loss(symbol, sell_date, qty)`、`get_contribution_room(account_type)`。
-- AI **只解释数字，不做投资建议**。例："为什么我 XEQT 的 ACB 是 30.73？"→ 列出参与计算的每笔交易和公式。
+- 复用 `crates/ai` 和
+  `crates/agent-tools`，新增工具：`get_acb(symbol)`、`get_realized_gains(year)`、`check_superficial_loss(symbol, sell_date, qty)`、`get_contribution_room(account_type)`。
+- AI
+  **只解释数字，不做投资建议**。例："为什么我 XEQT 的 ACB 是 30.73？"→ 列出参与计算的每笔交易和公式。
 - 回答里引用 CRA 规则名称，并附上 canada.ca 的链接。
-- 隐私：默认使用用户自己填的 API key 或本地模型；在发送任何数据到云端之前，明确告诉用户会发送什么。
+- 隐私：默认使用用户自己填的 API
+  key 或本地模型；在发送任何数据到云端之前，明确告诉用户会发送什么。
 - 系统提示里写死免责声明："This is not tax or investment advice."
 
 ---
@@ -185,31 +237,35 @@
 ## 8. 商业模式（技术实现要支持）
 
 - **免费版**：持仓追踪、手动 ACB、额度追踪（开源，本地运行）。
-- **付费版 "Tax Pack"**：约 CAD $49～79/年（上线前再验证定价）。包含：券商自动导入/同步、年度资本利得 PDF 报告、Superficial Loss 预检、每年规则自动更新、AI 助手额度。
-- 实现：用 Stripe 或 Lemon Squeezy 做许可证密钥（license key）验证，离线也能用（定期在线验证）。付费功能的代码依然开源（AGPL），收的是便利、数据服务和更新的钱。
+- **付费版 "Tax Pack"**：约 CAD
+  $49～79/年（上线前再验证定价）。包含：券商自动导入/同步、年度资本利得 PDF 报告、Superficial
+  Loss 预检、每年规则自动更新、AI 助手额度。
+- 实现：用 Stripe 或 Lemon Squeezy 做许可证密钥（license
+  key）验证，离线也能用（定期在线验证）。付费功能的代码依然开源（AGPL），收的是便利、数据服务和更新的钱。
 - 首个付费高峰在报税季（2027 年 2～4 月），**MVP 必须在 2027 年 1 月底之前上线**。
 
 ---
 
 ## 9. 里程碑（从 2026 年 11 月中开始）
 
-| 周 | 交付 |
-|---|---|
-| 第 1 周 | Fork、改名、本地跑通桌面端和 Web；读完代码，写架构笔记（lots、limits、fx、ai、导入流程）；确定加拿大模块放在哪里 |
-| 第 2–3 周 | 加拿大账户类型；ACB 引擎和用例 A、E 通过 |
-| 第 4 周 | Superficial Loss 检测，用例 B、C、D 通过；UI 显示 ACB 和被否认的亏损 |
-| 第 5 周 | TFSA/RRSP/FHSA 额度追踪和警告 |
-| 第 6 周 | Wealthsimple、Questrade CSV 导入 |
-| 第 7 周 | 年度资本利得报告（CSV、PDF）、免责声明、隐私政策 |
-| 第 8 周 | 许可证付费、落地页、打包签名；找 10 个内测用户 |
-| 第 9–10 周（1 月） | 修 bug、IBKR 导入、AI 助手 v1 → **正式上线** |
+| 周                 | 交付                                                                                                             |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| 第 1 周            | Fork、改名、本地跑通桌面端和 Web；读完代码，写架构笔记（lots、limits、fx、ai、导入流程）；确定加拿大模块放在哪里 |
+| 第 2–3 周          | 加拿大账户类型；ACB 引擎和用例 A、E 通过                                                                         |
+| 第 4 周            | Superficial Loss 检测，用例 B、C、D 通过；UI 显示 ACB 和被否认的亏损                                             |
+| 第 5 周            | TFSA/RRSP/FHSA 额度追踪和警告                                                                                    |
+| 第 6 周            | Wealthsimple、Questrade CSV 导入                                                                                 |
+| 第 7 周            | 年度资本利得报告（CSV、PDF）、免责声明、隐私政策                                                                 |
+| 第 8 周            | 许可证付费、落地页、打包签名；找 10 个内测用户                                                                   |
+| 第 9–10 周（1 月） | 修 bug、IBKR 导入、AI 助手 v1 → **正式上线**                                                                     |
 
 ---
 
 ## 10. 你现在要做的第一个任务
 
 1. 读 `AGENTS.md`、`README.md`、`ROADMAP.md`、`docs/architecture/`。
-2. 读 `crates/core/src/lots/`、`crates/core/src/limits/`、`crates/core/src/fx/`、`crates/core/src/accounts/`、活动导入相关代码。
+2. 读
+   `crates/core/src/lots/`、`crates/core/src/limits/`、`crates/core/src/fx/`、`crates/core/src/accounts/`、活动导入相关代码。
 3. 产出一份《架构笔记》，回答这些问题：
    - 交易（activity）从导入到持仓计算的完整数据流是怎样的？
    - FIFO lot 是在哪里算的？加一个"加拿大平均成本"路径，最小改动点在哪？

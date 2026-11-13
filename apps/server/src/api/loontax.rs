@@ -7,28 +7,18 @@
 use std::sync::Arc;
 
 use axum::{routing::get, Json, Router};
-use chrono::Utc;
-use loontax_canada_tax::Rules;
-use loontax_canada_tax_service::{tax_report, BankOfCanada, TaxReport};
-use wealthfolio_core::{
-    accounts::AccountServiceTrait, utils::time_utils::activity_date_in_user_timezone,
-};
+use loontax_canada_tax_service::{current_tax_report, TaxReport};
+use wealthfolio_core::accounts::AccountServiceTrait;
 
 use crate::{
     error::{ApiError, ApiResult},
     main_lib::AppState,
 };
 
-// The tax crates' messages name what failed and carry no stored values.
-fn internal(error: loontax_canada_tax::Error) -> ApiError {
-    ApiError::Internal(error.to_string())
-}
-
 async fn get_tax_report(
     axum::Extension(state): axum::Extension<Arc<AppState>>,
 ) -> ApiResult<Json<TaxReport>> {
     let timezone = state.timezone()?;
-    let today = activity_date_in_user_timezone(Utc::now(), &timezone);
 
     // The whole history is read, off the async workers.
     let reader = state.clone();
@@ -41,19 +31,15 @@ async fn get_tax_report(
     .await
     .map_err(|_| ApiError::Internal("The tax report could not be computed".to_string()))??;
 
-    let rules = Rules::embedded().map_err(internal)?;
-    let bank = BankOfCanada::new().map_err(internal)?;
-    let report = tax_report(
+    // The tax crates' messages name what failed and carry no stored values.
+    let report = current_tax_report(
         &accounts,
         &activities,
         &timezone,
-        &rules,
         state.loontax_rates.as_ref(),
-        &bank,
-        today,
     )
     .await
-    .map_err(internal)?;
+    .map_err(|error| ApiError::Internal(error.to_string()))?;
     Ok(Json(report))
 }
 

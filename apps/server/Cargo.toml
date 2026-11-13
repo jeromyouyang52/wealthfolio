@@ -9,7 +9,6 @@ wealthfolio-http = { workspace = true }
 # Internal crates
 wealthfolio-market-data = { workspace = true }
 wealthfolio-core = { workspace = true }
-loontax-canada-tax = { path = "../../crates/canada-tax" }
 loontax-canada-tax-service = { path = "../../crates/canada-tax-service" }
 wealthfolio-connect = { workspace = true }
 wealthfolio-storage-sqlite = { workspace = true }

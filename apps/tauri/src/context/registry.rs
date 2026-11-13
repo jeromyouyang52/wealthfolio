@@ -56,6 +56,8 @@ pub struct ServiceContext {
     pub asset_service: Arc<dyn assets::AssetServiceTrait>,
     pub quote_service: Arc<dyn quotes::QuoteServiceTrait>,
     pub limits_service: Arc<dyn limits::ContributionLimitServiceTrait>,
+    /// LoonTax: stored Bank of Canada rates for the Canadian tax report.
+    pub loontax_rates: Arc<wealthfolio_storage_sqlite::loontax_fx::BocFxRateRepository>,
     pub fx_service: Arc<dyn fx::FxServiceTrait>,
     pub performance_service: Arc<dyn portfolio::performance::PerformanceServiceTrait>,
     pub income_service: Arc<dyn portfolio::income::IncomeServiceTrait>,
@@ -191,6 +193,12 @@ impl ServiceContext {
 
     pub fn limits_service(&self) -> Arc<dyn limits::ContributionLimitServiceTrait> {
         Arc::clone(&self.limits_service)
+    }
+
+    pub fn loontax_rates(
+        &self,
+    ) -> Arc<wealthfolio_storage_sqlite::loontax_fx::BocFxRateRepository> {
+        Arc::clone(&self.loontax_rates)
     }
 
     pub fn fx_service(&self) -> Arc<dyn fx::FxServiceTrait> {

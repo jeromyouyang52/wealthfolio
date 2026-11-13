@@ -167,6 +167,12 @@ async fn build_context(
         pool.clone(),
         writer.clone(),
     ));
+    let loontax_rates = Arc::new(
+        wealthfolio_storage_sqlite::loontax_fx::BocFxRateRepository::new(
+            pool.clone(),
+            writer.clone(),
+        ),
+    );
     let fx_repository = Arc::new(FxRepository::new(pool.clone(), writer.clone()));
     let snapshot_repository = Arc::new(SnapshotRepository::new(pool.clone(), writer.clone()));
     let lots_repository = Arc::new(wealthfolio_storage_sqlite::lots::LotsRepository::new(
@@ -836,6 +842,7 @@ async fn build_context(
             goal_service,
             quote_service,
             limits_service,
+            loontax_rates,
             fx_service,
             performance_service,
             income_service,

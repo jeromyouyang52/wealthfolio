@@ -157,6 +157,8 @@ export const COMMANDS: CommandMap = {
   calculate_deposits_for_contribution_limit: { method: "GET", path: "/limits" },
   get_contribution_limit_details: { method: "GET", path: "/limits" },
   set_contribution_activity_excluded: { method: "PUT", path: "/limits" },
+  // LoonTax: Canadian tax report
+  get_tax_report: { method: "GET", path: "/loontax/tax-report" },
   // Asset profile
   get_assets: { method: "GET", path: "/assets" },
   create_asset: { method: "POST", path: "/assets" },

@@ -7,4 +7,4 @@ pub mod report;
 
 pub use activities::tax_activities;
 pub use bank_of_canada::BankOfCanada;
-pub use report::{tax_report, TaxReport};
+pub use report::{current_tax_report, tax_report, TaxReport};
