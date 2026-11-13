@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import { getAssets } from "@/adapters";
 import { useAccounts } from "@/hooks/use-accounts";
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";
 import { QueryKeys } from "@/lib/query-keys";
 import {
+  AnimatedToggleGroup,
   Badge,
   Button,
   Page,
@@ -39,6 +40,7 @@ import {
 } from "@wealthfolio/ui/components/ui/empty";
 import { Icons } from "@wealthfolio/ui/components/ui/icons";
 
+import { ContributionRoomView } from "../components/contribution-room-view";
 import { useTaxReport } from "../hooks/use-tax-report";
 import type {
   HolderReport,
@@ -420,11 +422,6 @@ function ReportBody({ report }: { report: TaxReport }) {
 
   return (
     <div className="grid gap-6">
-      <Alert className="px-3 py-2.5">
-        <Icons.Info className="h-4 w-4" />
-        <AlertDescription className="text-xs">{t("canada:disclaimer")}</AlertDescription>
-      </Alert>
-
       {report.unreadableAccountIds.length > 0 && (
         <Alert variant="warning" className="px-3 py-2.5">
           <Icons.AlertTriangle className="h-4 w-4" />
@@ -466,37 +463,82 @@ function ReportBody({ report }: { report: TaxReport }) {
   );
 }
 
+type TaxView = "gains" | "room";
+
 export default function TaxReportPage() {
   const { t } = useTranslation();
-  const { formatCalendarDate } = useDateFormatting();
-  const { data: report, isLoading, isError } = useTaxReport();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const view: TaxView = searchParams.get("view") === "room" ? "room" : "gains";
+  const setView = (next: TaxView) =>
+    setSearchParams(
+      (params) => {
+        if (next === "room") params.set("view", "room");
+        else params.delete("view");
+        return params;
+      },
+      { replace: true },
+    );
 
   return (
     <Page>
       <PageHeader
         heading={t("canada:title")}
-        text={
-          report
-            ? `${t("canada:subtitle")} ${t("canada:as_of", { date: formatCalendarDate(report.asOf) })}`
-            : t("canada:subtitle")
+        text={view === "room" ? t("canada:room.subtitle") : t("canada:subtitle")}
+        actions={
+          <AnimatedToggleGroup<TaxView>
+            value={view}
+            rounded="lg"
+            size="sm"
+            onValueChange={(next) => {
+              if (next === "gains" || next === "room") setView(next);
+            }}
+            items={[
+              { value: "gains", label: t("canada:view_gains") },
+              { value: "room", label: t("canada:view_room") },
+            ]}
+          />
         }
       />
       <PageContent>
-        {isLoading ? (
-          <div className="grid gap-4">
-            <Skeleton className="h-10 w-full rounded-xl" />
-            <Skeleton className="h-48 w-full rounded-xl" />
-            <Skeleton className="h-48 w-full rounded-xl" />
-          </div>
-        ) : isError || !report ? (
-          <Alert variant="destructive">
-            <Icons.AlertTriangle className="h-4 w-4" />
-            <AlertDescription>{t("canada:error")}</AlertDescription>
+        <div className="grid gap-6">
+          <Alert className="px-3 py-2.5">
+            <Icons.Info className="h-4 w-4" />
+            <AlertDescription className="text-xs">{t("canada:disclaimer")}</AlertDescription>
           </Alert>
-        ) : (
-          <ReportBody report={report} />
-        )}
+          {view === "room" ? <ContributionRoomView /> : <GainsView />}
+        </div>
       </PageContent>
     </Page>
+  );
+}
+
+function GainsView() {
+  const { t } = useTranslation();
+  const { formatCalendarDate } = useDateFormatting();
+  const { data: report, isLoading, isError } = useTaxReport();
+
+  if (isLoading) {
+    return (
+      <div className="grid gap-4">
+        <Skeleton className="h-48 w-full rounded-xl" />
+        <Skeleton className="h-48 w-full rounded-xl" />
+      </div>
+    );
+  }
+  if (isError || !report) {
+    return (
+      <Alert variant="destructive">
+        <Icons.AlertTriangle className="h-4 w-4" />
+        <AlertDescription>{t("canada:error")}</AlertDescription>
+      </Alert>
+    );
+  }
+  return (
+    <div className="grid gap-6">
+      <p className="text-muted-foreground text-sm">
+        {t("canada:as_of", { date: formatCalendarDate(report.asOf) })}
+      </p>
+      <ReportBody report={report} />
+    </div>
   );
 }

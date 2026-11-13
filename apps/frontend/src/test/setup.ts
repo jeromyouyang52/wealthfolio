@@ -28,6 +28,7 @@ import enAuth from "@/i18n/locales/en/auth.json";
 import enHealth from "@/i18n/locales/en/health.json";
 import enSync from "@/i18n/locales/en/sync.json";
 import enConnect from "@/i18n/locales/en/connect.json";
+import enCanada from "@/i18n/locales/en/canada.json";
 
 // Initialize i18next synchronously with English resources so `t()` returns real
 // copy (not raw keys) in component tests. Uses eager (non-lazy) resources; no
@@ -58,6 +59,7 @@ if (!i18n.isInitialized) {
       "health",
       "sync",
       "connect",
+      "canada",
     ],
     defaultNS: "common",
     resources: {
@@ -83,6 +85,7 @@ if (!i18n.isInitialized) {
         health: enHealth,
         sync: enSync,
         connect: enConnect,
+        canada: enCanada,
       },
     },
     interpolation: reactInterpolation(i18n),

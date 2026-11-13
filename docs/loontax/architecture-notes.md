@@ -154,6 +154,27 @@ Canada 汇率，税务计算统一用它；4 暂定名 LoonTax；5 仓库
 - `apps/tauri/src/lib.rs`、`apps/server/src/api/`（注册新命令和路由）
 - `apps/frontend/src/routes.tsx`、导航菜单（加入口）
 - 账户编辑表单（加两个字段）
+- 导入页 `upload-step.tsx`（先选账户、后选文件时模板列映射丢失的修复）
+- 测试初始化 `src/test/setup.ts`（加载 canada 命名空间）
 - 改名相关的配置文件
 
 其余全部是新增文件。
+
+## 5. 供款额度（2026-11-13 实现）
+
+- 计算在
+  `crates/canada-tax/src/room.rs`，按《所得税法》207.01(1) 的定义写：TFSA 的
+  excess 公式（含"取款中抵掉超额的部分"）、FHSA 的参与额度与结转、RRSP 用 NOA 的
+  可用额度和"第 61 天到次年第 60 天"的供款窗口。13 个手算用例，包括 CRA 自己的
+  FHSA 例子。
+- 没有沿用 1.4 节建议的 `ContributionActivity`：它把内部转账一律排除，而这里需要
+  区分"同类计划之间（不占额度）""非注册转入 TFSA（占额度）""RRSP 转入 FHSA
+  （占 FHSA 额度）"，还要按持有人归集、要看取款。改为在
+  `crates/canada-tax-service/src/room.rs` 用上游的 `TransferPairResolution`
+  自己分类。上游的通用额度功能（/limits）不动。
+- 用户填的起始数字（TFSA 1 月 1 日额度或合资格年份、RRSP 的 NOA 额度、FHSA 开户
+  年份）存在现有的 app settings 表，键 `loontax_holder_profiles`，不加迁移。设备
+  同步只同步白名单里的偏好键，这个键不在其中。
+- 记不准的情况不硬算，列在"未计入或按假设计入"里：来自其他机构的转账（按直接
+  转移处理）、待确认记录、配偶 RRSP 供款（不知道供款人）、FHSA 取款（未建模）、
+  缺汇率。
