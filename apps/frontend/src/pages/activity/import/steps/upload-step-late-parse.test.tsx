@@ -288,6 +288,47 @@ describe("UploadStep with an earlier parse that finishes last", () => {
     expect(screen.getByTestId("parse-config")).toHaveTextContent('"defaultCurrency":"EUR"');
   });
 
+  it("keeps a linked template's columns when the file is chosen after the account", async () => {
+    // Two amount-like columns: auto-detection alone picks the wrong one.
+    const template: ImportTemplateData = {
+      ...createDefaultActivityTemplate(),
+      id: "broker-template",
+      name: "Broker template",
+      scope: "SYSTEM",
+      fieldMappings: {
+        date: "Trade Date",
+        symbol: "Ticker",
+        amount: "Net Amount",
+      },
+    };
+    vi.mocked(listImportTemplates).mockResolvedValue([template]);
+    vi.mocked(getAccountImportMapping).mockResolvedValue({
+      ...createDefaultActivityMapping("account-1"),
+      templateId: template.id,
+    });
+    const drop = renderUploadStep();
+    await waitFor(() =>
+      expect(screen.getByTestId("selected-template")).toHaveTextContent(template.id),
+    );
+
+    drop(
+      new File(
+        ["Trade Date,Ticker,Gross Amount,Net Amount\n2026-03-02,XEQT,-3000,-3004.95\n"],
+        "broker.csv",
+        {
+          type: "text/csv",
+        },
+      ),
+    );
+    await act(async () => (await nextParse("broker.csv", 0))());
+    await screen.findByText("1 row");
+
+    const mappings = screen.getByTestId("field-mappings");
+    expect(mappings).toHaveTextContent('"amount":"Net Amount"');
+    expect(mappings).toHaveTextContent('"symbol":"Ticker"');
+    expect(mappings).toHaveTextContent('"date":"Trade Date"');
+  });
+
   it.each(["success", "failure"])(
     "ignores a pending re-parse %s after file removal",
     async (outcome) => {

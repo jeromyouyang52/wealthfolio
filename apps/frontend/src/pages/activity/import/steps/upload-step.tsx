@@ -877,6 +877,27 @@ export function UploadStep() {
       setParseError(null);
       dispatch(setParsedData(result.headers, result.rows));
       dispatch(setParseConfig(mergeDetectedParseConfig(state.parseConfig, result.detectedConfig)));
+      // A template applied before any file was chosen (e.g. the account's linked template)
+      // matched its columns against no headers, so its saved columns were dropped.
+      // Match them again now that the file's headers are known.
+      const template = templates.find((tpl) => tpl.id === effectiveSelectedTemplateId);
+      if (template && state.mapping) {
+        dispatch(
+          setMapping(
+            sanitizeImportMappingForProfile(
+              {
+                ...state.mapping,
+                fieldMappings: computeFieldMappings(
+                  result.headers,
+                  template.fieldMappings,
+                  importProfile,
+                ),
+              },
+              importProfile,
+            ),
+          ),
+        );
+      }
     },
     onError: (error, { isLatestParse }) => {
       if (!isLatestParse()) return;
