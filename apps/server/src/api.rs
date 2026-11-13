@@ -52,6 +52,7 @@ mod goals;
 mod health;
 mod holdings;
 mod limits;
+mod loontax;
 mod market_data;
 mod net_worth;
 mod performance;
@@ -208,6 +209,7 @@ fn app_router_with_profiles(
         .merge(secrets::router())
         .merge(addon_network::router())
         .merge(limits::router())
+        .merge(loontax::router())
         .merge(addons::router())
         .merge(taxonomies::router())
         .merge(net_worth::router())

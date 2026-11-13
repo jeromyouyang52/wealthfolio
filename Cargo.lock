@@ -8887,6 +8887,8 @@ dependencies = [
  "hex",
  "hkdf 0.13.0",
  "jsonwebtoken",
+ "loontax-canada-tax",
+ "loontax-canada-tax-service",
  "openidconnect",
  "rand 0.10.3",
  "reqwest",

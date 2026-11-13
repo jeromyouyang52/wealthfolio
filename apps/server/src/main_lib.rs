@@ -113,6 +113,8 @@ pub struct AppState {
     pub income_service: Arc<dyn IncomeServiceTrait + Send + Sync>,
     pub goal_service: Arc<dyn GoalServiceTrait + Send + Sync>,
     pub limits_service: Arc<dyn ContributionLimitServiceTrait + Send + Sync>,
+    /// LoonTax: stored Bank of Canada rates for the Canadian tax report.
+    pub loontax_rates: Arc<wealthfolio_storage_sqlite::loontax_fx::BocFxRateRepository>,
     pub fx_service: Arc<dyn FxServiceTrait + Send + Sync>,
     pub activity_service: Arc<dyn ActivityServiceTrait + Send + Sync>,
     pub asset_service: Arc<dyn AssetServiceTrait + Send + Sync>,
@@ -785,6 +787,12 @@ async fn initialize_profile_state(
         pool.clone(),
         writer.clone(),
     ));
+    let loontax_rates = Arc::new(
+        wealthfolio_storage_sqlite::loontax_fx::BocFxRateRepository::new(
+            pool.clone(),
+            writer.clone(),
+        ),
+    );
     let limits_service: Arc<dyn ContributionLimitServiceTrait + Send + Sync> =
         Arc::new(ContributionLimitService::new_with_timezone(
             fx_service.clone(),
@@ -1204,6 +1212,7 @@ async fn initialize_profile_state(
         income_service,
         goal_service,
         limits_service,
+        loontax_rates,
         fx_service: fx_service.clone(),
         activity_service,
         asset_service,
