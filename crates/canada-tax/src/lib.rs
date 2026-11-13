@@ -16,6 +16,7 @@ pub mod fx;
 pub mod fx_sync;
 pub mod ledger;
 pub mod registration;
+pub mod room;
 pub mod rules;
 
 pub use acb::{to_cad, AcbPool, Disposition};
@@ -30,4 +31,9 @@ pub use ledger::{
     summarize_year, DeemedGain, DispositionRecord, Event, EventKind, Ledger, YearSummary,
 };
 pub use registration::{CanadaAccountInfo, Registration, CANADA_META_KEY, DEFAULT_HOLDER};
+pub use room::{
+    check_holder, fhsa_room, profiles_from_json, profiles_to_json, rrsp_room, tfsa_room,
+    ExcessMonth, FhsaRoom, FhsaStart, FhsaYear, FlowKind, HolderProfile, HolderProfiles, Plan,
+    PlanFlow, RrspRoom, RrspStart, TfsaRoom, TfsaStart, TfsaYear,
+};
 pub use rules::Rules;

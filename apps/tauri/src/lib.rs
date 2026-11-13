@@ -436,6 +436,8 @@ pub fn run() {
             commands::limits::get_contribution_limit_details,
             commands::limits::set_contribution_activity_excluded,
             commands::loontax::get_tax_report,
+            commands::loontax::get_contribution_room,
+            commands::loontax::save_holder_profile,
             commands::cloud_backups::cloud_backup_action,
             commands::cloud_backups::cloud_backup_capture,
             commands::cloud_backups::cloud_backup_download,

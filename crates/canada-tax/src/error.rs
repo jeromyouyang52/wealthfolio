@@ -20,6 +20,12 @@ pub enum Error {
     #[error("Stored Bank of Canada rates could not be read or written: {0}")]
     RateStore(String),
 
+    #[error("The contribution room settings are not valid: {0}")]
+    InvalidProfile(String),
+
+    #[error("The rule table has no {plan:?} limit for {year}")]
+    MissingRule { plan: crate::room::Plan, year: i32 },
+
     #[error("{0} must be greater than zero")]
     NotPositive(&'static str),
 

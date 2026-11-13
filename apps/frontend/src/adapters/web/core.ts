@@ -159,6 +159,8 @@ export const COMMANDS: CommandMap = {
   set_contribution_activity_excluded: { method: "PUT", path: "/limits" },
   // LoonTax: Canadian tax report
   get_tax_report: { method: "GET", path: "/loontax/tax-report" },
+  get_contribution_room: { method: "GET", path: "/loontax/contribution-room" },
+  save_holder_profile: { method: "PUT", path: "/loontax/holder-profiles" },
   // Asset profile
   get_assets: { method: "GET", path: "/assets" },
   create_asset: { method: "POST", path: "/assets" },
@@ -532,6 +534,10 @@ export const invoke = async <T>(command: string, payload?: Record<string, unknow
     case "delete_database_backup": {
       const { filename } = payload as { filename: string };
       url += `/${encodeURIComponent(filename)}`;
+      break;
+    }
+    case "save_holder_profile": {
+      body = JSON.stringify(payload);
       break;
     }
     case "update_settings": {
