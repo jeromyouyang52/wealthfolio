@@ -37,6 +37,7 @@ import {
 import { Icons } from "@wealthfolio/ui/components/ui/icons";
 
 import { ContributionRoomView } from "../components/contribution-room-view";
+import { DuplicateSecuritiesAlert } from "../components/duplicate-securities-alert";
 import { useSecurityNames } from "../hooks/use-security-names";
 import { useTaxReport } from "../hooks/use-tax-report";
 import type {
@@ -278,6 +279,7 @@ function HolderSection({ holder, showName }: { holder: HolderReport; showName: b
   return (
     <section className="grid gap-4">
       {showName && <h2 className="text-lg font-semibold">{name}</h2>}
+      <DuplicateSecuritiesAlert holder={holder} />
       {(holder.years.length > 0 || holder.yearsWithoutRate.length > 0) && (
         <Card>
           <CardHeader>

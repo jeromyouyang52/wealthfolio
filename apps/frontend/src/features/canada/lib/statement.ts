@@ -179,3 +179,24 @@ export function statementFileName(year: number, holder: string): string {
   const safeHolder = holder.replace(/[^\p{L}\p{N}_-]+/gu, "-");
   return `loontax-capital-gains-${year}-${safeHolder}.csv`;
 }
+
+/**
+ * Codes shown for more than one of the holder's securities. Two asset records
+ * for one security (one entered by hand, one created by an import, say) get
+ * separate cost bases, which the CRA's averaging rule does not allow.
+ */
+export function duplicateSecurityCodes(
+  holder: HolderReport,
+  codeOf: (securityId: string) => string,
+): string[] {
+  const ids = new Map<string, Set<string>>();
+  for (const position of holder.positions) {
+    const code = codeOf(position.securityId).trim().toUpperCase();
+    if (!code) continue;
+    ids.set(code, (ids.get(code) ?? new Set()).add(position.securityId));
+  }
+  return [...ids]
+    .filter(([, set]) => set.size > 1)
+    .map(([code]) => code)
+    .sort();
+}

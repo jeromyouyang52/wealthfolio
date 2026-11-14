@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { toCsv } from "@/pages/allocation-targets/components/allocation-worksheet-export";
 import type { HolderReport, TaxDisposition, TaxReport } from "../types/tax-report";
 import {
+  duplicateSecurityCodes,
   holderIssues,
   statementCsvRows,
   statementFileName,
@@ -170,5 +171,15 @@ describe("the annual statement", () => {
     expect(statementFileName(2026, "Jean / Marie")).toBe(
       "loontax-capital-gains-2026-Jean-Marie.csv",
     );
+  });
+
+  it("finds one code standing for several securities", () => {
+    const twice: HolderReport = {
+      ...holder,
+      positions: [...holder.positions, { ...holder.positions[0], securityId: "uuid-of-xeqt" }],
+    };
+    const code = (id: string) => (id === "uuid-of-xeqt" ? "xeqt" : id);
+    expect(duplicateSecurityCodes(twice, code)).toEqual(["XEQT"]);
+    expect(duplicateSecurityCodes(holder, code)).toEqual([]);
   });
 });

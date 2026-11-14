@@ -1,0 +1,68 @@
+name: LoonTax Windows installer
+
+# Builds the LoonTax Windows installer (unsigned NSIS .exe) from the LoonTax
+# branches and keeps it as a workflow artifact. No tag, no GitHub release.
+#
+# The build uses apps/tauri/tauri.loontax.conf.json: its own name and
+# identifier (its data folder is not Wealthfolio's), no updater artifacts,
+# and an update feed that does not point at Wealthfolio's releases.
+
+on:
+  push:
+    branches:
+      - "loontax/**"
+  workflow_dispatch:
+
+concurrency:
+  group: loontax-windows-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    env:
+      TARGET: x86_64-pc-windows-msvc
+      # The in-app updater refuses to install anything in these builds.
+      WEALTHFOLIO_UPDATE_EXPLANATION: "Install a newer LoonTax build to update this test version."
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Rust setup
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Rust target
+        run: rustup target add ${{ env.TARGET }}
+
+      - name: pnpm Setup
+        uses: pnpm/action-setup@v4
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          shared-key: loontax-windows-x86_64
+
+      - name: Sync node version and setup cache
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: "pnpm"
+
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build the installer
+        run:
+          pnpm tauri build --target ${{ env.TARGET }} --bundles nsis --config
+          apps/tauri/tauri.loontax.conf.json -- --locked
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: loontax-windows-x64-installer
+          path: target/${{ env.TARGET }}/release/bundle/nsis/*.exe
+          if-no-files-found: error
+          retention-days: 30

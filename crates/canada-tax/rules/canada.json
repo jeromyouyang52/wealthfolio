@@ -1,6 +1,6 @@
 {
   "tfsa": {
-    "source": "https://www.investmentexecutive.com/industry-news/tfsa-dollar-limit-to-hold-steady-in-2026/",
+    "source": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/tax-free-savings-account/contributing/calculate-room.html",
     "annualLimits": {
       "2009": "5000", "2010": "5000", "2011": "5000", "2012": "5000",
       "2013": "5500", "2014": "5500",
@@ -20,7 +20,7 @@
     "overContributionMonthlyRate": "0.01"
   },
   "fhsa": {
-    "source": "https://www.ctvnews.ca/business/article/christopher-liew-the-biggest-tax-and-benefit-changes-for-2026-you-shouldnt-be-sleeping-on/",
+    "source": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account/contributing-your-fhsa.html",
     "firstYear": 2023,
     "annualLimit": "8000",
     "lifetimeLimit": "40000",
@@ -32,7 +32,7 @@
     "inclusionRates": [{ "fromYear": 2001, "rate": "0.5" }]
   },
   "superficialLoss": {
-    "source": "https://www.taxtips.ca/personaltax/investing/taxtreatment/superficial-losses-and-other-disallowed-losses.htm",
+    "source": "https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/t4037/capital-gains.html",
     "daysBefore": 30,
     "daysAfter": 30
   }

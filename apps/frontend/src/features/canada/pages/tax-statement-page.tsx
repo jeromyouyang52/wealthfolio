@@ -23,6 +23,7 @@ import {
 import { Alert, AlertDescription } from "@wealthfolio/ui/components/ui/alert";
 import { Icons } from "@wealthfolio/ui/components/ui/icons";
 
+import { DuplicateSecuritiesAlert } from "../components/duplicate-securities-alert";
 import { useSecurityNames } from "../hooks/use-security-names";
 import { useTaxReport } from "../hooks/use-tax-report";
 import {
@@ -123,6 +124,8 @@ function Statement({ report, holder, year }: { report: TaxReport; holder: string
       </div>
 
       <p className="text-muted-foreground border-s-2 ps-3 text-xs">{t("canada:disclaimer")}</p>
+
+      <DuplicateSecuritiesAlert holder={holderReport} />
 
       {summary && (
         <section className="grid gap-2">

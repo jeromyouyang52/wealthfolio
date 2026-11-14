@@ -66,6 +66,7 @@
     "failure": "Kurse für {{currency}} vom {{from}} bis {{to}} konnten nicht von der Bank of Canada abgerufen werden. Gespeicherte Kurse wurden verwendet."
   },
   "unreadable_accounts": "Die gespeicherte Registrierung dieser Konten konnte nicht gelesen werden: {{accounts}}",
+  "duplicate_securities": "{{codes}}: Derselbe Code steht in der App für mehr als ein Wertpapier, daher hat jedes eine eigene Kostenbasis. Handelt es sich um ein Wertpapier (etwa eines von Hand angelegt, eines durch einen Import), verlangt die CRA eine gemittelte Kostenbasis: Verschieben Sie die Transaktionen auf einen der Einträge (Einstellungen → Wertpapiere zeigt sie).",
   "room": {
     "subtitle": "Einzahlungsspielraum für TFSA, RRSP und FHSA aus Ihren CRA-Angaben und dem in Ihren Plänen erfassten Geld.",
     "load_error": "Der Einzahlungsspielraum konnte nicht berechnet werden.",

@@ -66,6 +66,7 @@
     "failure": "Les taux pour {{currency}} du {{from}} au {{to}} n'ont pas pu être obtenus auprès de la Banque du Canada. Les taux déjà enregistrés ont été utilisés."
   },
   "unreadable_accounts": "L'enregistrement de ces comptes est illisible : {{accounts}}",
+  "duplicate_securities": "{{codes}} : le même code désigne plus d'un titre dans l'application, chacun avec son propre coût. S'il s'agit d'un seul titre (l'un saisi à la main, l'autre créé par une importation, par exemple), l'ARC exige un seul coût moyen : déplacez les opérations vers l'un des deux (Paramètres → Titres les affiche).",
   "room": {
     "subtitle": "Droits de cotisation CELI, REER et CELIAPP, à partir de vos chiffres de l'ARC et de l'argent inscrit dans vos régimes.",
     "load_error": "Les droits de cotisation n'ont pas pu être calculés.",

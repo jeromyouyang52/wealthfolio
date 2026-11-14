@@ -1,0 +1,32 @@
+{
+  "productName": "LoonTax",
+  "mainBinaryName": "LoonTax",
+  "identifier": "ca.loontax.desktop",
+  "bundle": {
+    "createUpdaterArtifacts": false
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": [
+        "https://github.com/jeromyouyang52/wealthfolio/releases/latest/download/latest.json"
+      ]
+    }
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "create": true,
+        "dragDropEnabled": false,
+        "fullscreen": false,
+        "resizable": true,
+        "theme": "Light",
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true,
+        "title": "LoonTax",
+        "width": 1440,
+        "height": 960
+      }
+    ]
+  }
+}

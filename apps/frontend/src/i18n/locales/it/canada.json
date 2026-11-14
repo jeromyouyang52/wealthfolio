@@ -66,6 +66,7 @@
     "failure": "Non è stato possibile ottenere dalla Banca del Canada i cambi di {{currency}} dal {{from}} al {{to}}. Sono stati usati i cambi salvati."
   },
   "unreadable_accounts": "Non è stato possibile leggere la registrazione salvata su questi conti: {{accounts}}",
+  "duplicate_securities": "{{codes}}: lo stesso codice indica più di un titolo nell'app, quindi ognuno ha un proprio costo. Se sono lo stesso titolo (uno creato a mano e uno da un'importazione, per esempio), la CRA richiede un unico costo medio: sposta le operazioni su uno dei due (Impostazioni → Titoli li mostra).",
   "room": {
     "subtitle": "Margine di contribuzione TFSA, RRSP e FHSA in base ai dati della CRA e al denaro registrato nei tuoi piani.",
     "load_error": "Non è stato possibile calcolare il margine di contribuzione.",

@@ -66,6 +66,7 @@
     "failure": "未能从加拿大银行取得 {{currency}} 在 {{from}} 至 {{to}} 的汇率，已使用本地保存的汇率。"
   },
   "unreadable_accounts": "这些账户保存的注册类型无法读取：{{accounts}}",
+  "duplicate_securities": "{{codes}}：同一个代码在 App 里对应了不止一条证券记录，所以各自单独计算了成本。如果它们其实是同一只证券（比如一条是手动建的、一条是导入时建的），CRA 要求合并计算平均成本：请把交易都改到其中一条记录上（在 设置 → 证券 里能看到它们）。",
   "room": {
     "subtitle": "根据你从 CRA 获得的数字和账户里记录的资金，计算 TFSA、RRSP 和 FHSA 的供款额度。",
     "load_error": "供款额度计算失败。",

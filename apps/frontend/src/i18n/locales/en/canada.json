@@ -66,6 +66,7 @@
     "failure": "Rates for {{currency}} from {{from}} to {{to}} could not be fetched from the Bank of Canada. Stored rates were used."
   },
   "unreadable_accounts": "The registration stored on these accounts could not be read: {{accounts}}",
+  "duplicate_securities": "{{codes}}: the same code stands for more than one security in the app, so each gets its own cost base. If they are one security (say one entered by hand and one created by an import), the CRA requires one averaged cost: move the trades onto one of the records (Settings → Securities lists them).",
   "room": {
     "subtitle": "TFSA, RRSP and FHSA room from your CRA figures and the money recorded in your plans.",
     "load_error": "The contribution room could not be computed.",

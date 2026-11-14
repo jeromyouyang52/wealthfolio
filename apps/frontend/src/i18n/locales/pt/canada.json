@@ -66,6 +66,7 @@
     "failure": "Não foi possível obter do Banco do Canadá as cotações de {{currency}} de {{from}} a {{to}}. As cotações salvas foram usadas."
   },
   "unreadable_accounts": "Não foi possível ler o registro salvo nestas contas: {{accounts}}",
+  "duplicate_securities": "{{codes}}: o mesmo código corresponde a mais de um título no app, então cada um tem seu próprio custo. Se forem o mesmo título (um criado à mão e outro por uma importação, por exemplo), a CRA exige um único custo médio: passe as operações para um dos registros (Configurações → Valores mobiliários os mostra).",
   "room": {
     "subtitle": "Limite de contribuição de TFSA, RRSP e FHSA a partir dos seus valores da CRA e do dinheiro registrado nos seus planos.",
     "load_error": "Não foi possível calcular o limite de contribuição.",

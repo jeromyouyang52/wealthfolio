@@ -66,6 +66,7 @@
     "failure": "No se pudieron obtener del Banco de Canadá los tipos de {{currency}} del {{from}} al {{to}}. Se usaron los tipos guardados."
   },
   "unreadable_accounts": "No se pudo leer el registro guardado en estas cuentas: {{accounts}}",
+  "duplicate_securities": "{{codes}}: el mismo código corresponde a más de un valor en la aplicación, así que cada uno tiene su propio costo. Si son un mismo valor (uno creado a mano y otro por una importación, por ejemplo), la CRA exige un único costo promedio: pase las operaciones a uno de los registros (Configuración → Valores los muestra).",
   "room": {
     "subtitle": "Margen de aportación de TFSA, RRSP y FHSA según sus cifras de la CRA y el dinero registrado en sus planes.",
     "load_error": "No se pudo calcular el margen de aportación.",
