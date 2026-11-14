@@ -153,5 +153,37 @@
       "clear": "Rimuovi il dato",
       "save_failed": "Non è stato possibile salvare il dato."
     }
+  },
+  "statement": {
+    "open": "Prospetto annuale",
+    "title": "Prospetto delle plusvalenze",
+    "heading": "Prospetto delle plusvalenze {{year}}",
+    "prepared_on": "Preparato il {{date}}",
+    "in_cad": "Importi in dollari canadesi",
+    "summary": "Riepilogo",
+    "summary_provisional": "Quest'anno include una minusvalenza provvisoria: i dati possono ancora cambiare.",
+    "summary_review": "Quest'anno include una minusvalenza negata ripartita tra quote dentro e fuori dai piani registrati. Verificala con un commercialista.",
+    "dispositions": "Cessioni",
+    "nothing": "Nessuna cessione nel {{year}}.",
+    "proceeds": "Ricavo, al netto dei costi di vendita",
+    "gain_before_rule": "Plus o minusvalenza prima della regola sulle perdite apparenti",
+    "denied": "Minusvalenza negata",
+    "reportable": "Plus o minusvalenza da dichiarare",
+    "note": "Nota",
+    "note_provisional": "Provvisoria: riacquistare il titolo entro 30 giorni dalla vendita può ancora negare questa minusvalenza.",
+    "note_review": "Da verificare con un commercialista: la minusvalenza negata è stata ripartita tra quote dentro e fuori dai piani registrati.",
+    "left_out_warning": "Questi titoli non sono in nessuno dei dati sopra. Calcolali a parte prima della dichiarazione.",
+    "how_to_report": "Riporta ogni cessione nello Schedule 3, nella sezione per azioni quotate, quote di fondi comuni e altre azioni. Il ricavo indicato qui è già al netto delle commissioni: non inserire spese, oppure separa la commissione se il tuo modulo riporta il ricavo lordo. Un importo imponibile positivo va alla riga 12700 della dichiarazione; una perdita netta non va inserita lì, la CRA la registra per altri anni.",
+    "method": "Il costo è il costo base rettificato medio su tutti i conti non registrati di questo titolare. Gli importi in valuta estera usano il cambio giornaliero della Banca del Canada del giorno di ogni operazione. Le minusvalenze negate dalla regola sulle perdite apparenti non sono dedotte.",
+    "csv_holder": "Titolare",
+    "csv_prepared_on": "Preparato il",
+    "csv_currency": "Valuta",
+    "export_csv": "Scarica CSV",
+    "print": "Stampa o salva in PDF",
+    "print_hint": "Per un PDF, scegli Stampa e seleziona Salva come PDF come destinazione.",
+    "year": "Anno",
+    "holder": "Titolare",
+    "empty": "Ancora nessuna plusvalenza o minusvalenza da dichiarare.",
+    "export_failed": "Non è stato possibile esportare il prospetto."
   }
 }

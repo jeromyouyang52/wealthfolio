@@ -153,5 +153,37 @@
       "clear": "刪除數字",
       "save_failed": "數字儲存失敗。"
     }
+  },
+  "statement": {
+    "open": "年度報表",
+    "title": "資本利得報表",
+    "heading": "{{year}} 年資本利得報表",
+    "prepared_on": "產生於 {{date}}",
+    "in_cad": "金額以加幣計",
+    "summary": "彙總",
+    "summary_provisional": "本年包含暫定損失，數字仍可能變化。",
+    "summary_review": "本年有一筆被否認的損失分攤到了註冊和非註冊帳戶的股份上，請找會計師確認。",
+    "dispositions": "賣出紀錄",
+    "nothing": "{{year}} 年沒有賣出紀錄。",
+    "proceeds": "賣出所得（已扣賣出費用）",
+    "gain_before_rule": "適用表面損失規則前的損益",
+    "denied": "被否認的損失",
+    "reportable": "應申報的損益",
+    "note": "備註",
+    "note_provisional": "暫定：賣出後 30 天內買回該證券，這筆損失仍可能被否認。",
+    "note_review": "請找會計師確認：被否認的損失分攤到了註冊計畫內外的股份上。",
+    "left_out_warning": "以下證券沒有計入上面任何數字，報稅前請另行計算。",
+    "how_to_report": "每筆賣出填在 Schedule 3 的「上市股票、共同基金單位和其他股份」一欄。這裡的賣出所得已扣除手續費，所以費用欄填 0；如果你的稅單顯示的是毛額，也可以把手續費單獨列出。應稅金額為正數時填在稅表第 12700 行；淨損失不填在那裡，CRA 會記錄下來留給其他年度抵扣。",
+    "method": "成本是這位持有人所有非註冊帳戶合併計算的調整後成本基礎（ACB）。外幣金額按每筆交易當天的加拿大銀行匯率換算。被表面損失規則否認的損失不扣除。",
+    "csv_holder": "持有人",
+    "csv_prepared_on": "產生日期",
+    "csv_currency": "貨幣",
+    "export_csv": "下載 CSV",
+    "print": "列印或存為 PDF",
+    "print_hint": "要存成 PDF，按「列印」，再把目的地選為「儲存為 PDF」。",
+    "year": "年份",
+    "holder": "持有人",
+    "empty": "目前沒有需要申報的資本損益。",
+    "export_failed": "報表匯出失敗。"
   }
 }

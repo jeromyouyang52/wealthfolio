@@ -1,12 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
 
-import { getAssets } from "@/adapters";
-import { useAccounts } from "@/hooks/use-accounts";
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";
-import { QueryKeys } from "@/lib/query-keys";
 import {
   AnimatedToggleGroup,
   Badge,
@@ -41,6 +37,7 @@ import {
 import { Icons } from "@wealthfolio/ui/components/ui/icons";
 
 import { ContributionRoomView } from "../components/contribution-room-view";
+import { useSecurityNames } from "../hooks/use-security-names";
 import { useTaxReport } from "../hooks/use-tax-report";
 import type {
   HolderReport,
@@ -57,19 +54,6 @@ function useCad() {
   const amountFormatting = useAmountFormatting();
   const { isBalanceHidden } = useBalancePrivacy();
   return (value: number) => (isBalanceHidden ? "••••" : amountFormatting.formatAmount(value, CAD));
-}
-
-function useNames() {
-  const { data: assets = [] } = useQuery({ queryKey: [QueryKeys.ASSETS], queryFn: getAssets });
-  const { accounts } = useAccounts({ filterActive: false, includeArchived: true });
-  return useMemo(() => {
-    const securities = new Map(assets.map((a) => [a.id, a.displayCode ?? a.name ?? a.id]));
-    const accountNames = new Map(accounts.map((a) => [a.id, a.name]));
-    return {
-      security: (id: string) => securities.get(id) ?? id,
-      account: (id: string) => accountNames.get(id) ?? id,
-    };
-  }, [assets, accounts]);
 }
 
 function FlagBadge({ label, tip }: { label: string; tip: string }) {
@@ -138,7 +122,7 @@ function YearsTable({ years }: { years: TaxYearSummary[] }) {
 function PositionsTable({ holder }: { holder: HolderReport }) {
   const { t } = useTranslation();
   const cad = useCad();
-  const names = useNames();
+  const names = useSecurityNames();
   const { formatQuantity } = useNumberFormatting();
   return (
     <Table>
@@ -179,7 +163,7 @@ interface DispositionRow {
 function DispositionsTable({ holder }: { holder: HolderReport }) {
   const { t } = useTranslation();
   const cad = useCad();
-  const names = useNames();
+  const names = useSecurityNames();
   const { formatQuantity } = useNumberFormatting();
   const { formatCalendarDate } = useDateFormatting();
 
@@ -326,7 +310,7 @@ function HolderSection({ holder, showName }: { holder: HolderReport; showName: b
 
 function IssuesCard({ issues }: { issues: TaxIssue[] }) {
   const { t } = useTranslation();
-  const names = useNames();
+  const names = useSecurityNames();
   const { formatCalendarDate } = useDateFormatting();
   if (issues.length === 0) return null;
   return (
@@ -416,7 +400,7 @@ function RatesCard({ report }: { report: TaxReport }) {
 
 function ReportBody({ report }: { report: TaxReport }) {
   const { t } = useTranslation();
-  const names = useNames();
+  const names = useSecurityNames();
   const nothing =
     report.holders.length === 0 && report.issues.length === 0 && report.rateFailures.length === 0;
 
@@ -535,9 +519,17 @@ function GainsView() {
   }
   return (
     <div className="grid gap-6">
-      <p className="text-muted-foreground text-sm">
-        {t("canada:as_of", { date: formatCalendarDate(report.asOf) })}
-      </p>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="text-muted-foreground text-sm">
+          {t("canada:as_of", { date: formatCalendarDate(report.asOf) })}
+        </p>
+        {report.holders.some((holder) => holder.years.length > 0) && (
+          <Button variant="outline" size="sm" render={<Link to="/tax/statement" />}>
+            <Icons.FileText className="me-2 h-4 w-4" />
+            {t("canada:statement.open")}
+          </Button>
+        )}
+      </div>
       <ReportBody report={report} />
     </div>
   );

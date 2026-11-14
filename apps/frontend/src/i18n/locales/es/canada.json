@@ -153,5 +153,37 @@
       "clear": "Quitar cifra",
       "save_failed": "No se pudo guardar la cifra."
     }
+  },
+  "statement": {
+    "open": "Estado anual",
+    "title": "Estado de ganancias de capital",
+    "heading": "Estado de ganancias de capital {{year}}",
+    "prepared_on": "Preparado el {{date}}",
+    "in_cad": "Importes en dólares canadienses",
+    "summary": "Resumen",
+    "summary_provisional": "Este año incluye una pérdida provisional: las cifras aún pueden cambiar.",
+    "summary_review": "Este año incluye una pérdida denegada repartida entre acciones dentro y fuera de planes registrados. Consúltela con un contador.",
+    "dispositions": "Disposiciones",
+    "nothing": "No hay disposiciones en {{year}}.",
+    "proceeds": "Producto, neto de gastos de venta",
+    "gain_before_rule": "Ganancia o pérdida antes de la regla de pérdida superficial",
+    "denied": "Pérdida denegada",
+    "reportable": "Ganancia o pérdida a declarar",
+    "note": "Nota",
+    "note_provisional": "Provisional: volver a comprar el valor en los 30 días siguientes a la venta aún puede denegar esta pérdida.",
+    "note_review": "Consúltelo con un contador: la pérdida denegada se repartió entre acciones dentro y fuera de planes registrados.",
+    "left_out_warning": "Estos valores no están en ninguna de las cifras anteriores. Calcúlelos por separado antes de declarar.",
+    "how_to_report": "Anote cada disposición en el Schedule 3, en la sección de acciones cotizadas, participaciones de fondos de inversión y otras acciones. El producto indicado aquí ya descuenta las comisiones, así que no anote gastos, o separe la comisión si su comprobante muestra el producto bruto. Un importe imponible positivo va en la línea 12700 de su declaración; una pérdida neta no se anota allí, y la CRA la registra para otros años.",
+    "method": "El costo es el costo base ajustado promediado en todas las cuentas no registradas de este titular. Los importes en moneda extranjera usan el tipo diario del Banco de Canadá del día de cada operación. Las pérdidas denegadas por la regla de pérdida superficial no se deducen.",
+    "csv_holder": "Titular",
+    "csv_prepared_on": "Preparado el",
+    "csv_currency": "Moneda",
+    "export_csv": "Descargar CSV",
+    "print": "Imprimir o guardar como PDF",
+    "print_hint": "Para obtener un PDF, elija Imprimir y seleccione Guardar como PDF como destino.",
+    "year": "Año",
+    "holder": "Titular",
+    "empty": "Aún no hay ganancias ni pérdidas de capital que declarar.",
+    "export_failed": "No se pudo exportar el estado."
   }
 }

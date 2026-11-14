@@ -252,9 +252,16 @@ async fn the_report_adds_up_and_names_what_it_left_out() {
     };
     assert_eq!(position("XEQT").acb_total_cad, dec!(3000));
     assert_eq!(position("XEQT").acb_per_unit_cad, Some(dec!(30)));
-    assert_eq!(position("XEQT").dispositions[0].gain_cad, dec!(1500));
-    assert_eq!(position("VCN").dispositions[0].denied_lost_cad, dec!(1000));
-    assert_eq!(position("VTI").dispositions[0].gain_cad, dec!(210.329));
+    assert_eq!(position("XEQT").dispositions[0].record.gain_cad, dec!(1500));
+    assert_eq!(
+        position("VCN").dispositions[0].record.denied_lost_cad,
+        dec!(1000)
+    );
+    assert_eq!(position("VCN").dispositions[0].reportable_gain_cad, dec!(0));
+    assert_eq!(
+        position("VTI").dispositions[0].record.gain_cad,
+        dec!(210.329)
+    );
 
     // 2026: gains 1,500 + 210.329; the VCN loss is denied in full.
     let year = &holder.years[0];

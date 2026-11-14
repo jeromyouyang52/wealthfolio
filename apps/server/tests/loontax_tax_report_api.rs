@@ -196,6 +196,7 @@ async fn the_report_pools_across_accounts_and_applies_the_superficial_loss_rule(
     assert_eq!(position("XEQT")["acbTotalCad"], 3000.0);
     assert_eq!(position("XEQT")["acbPerUnitCad"], 30.0);
     assert_eq!(position("VCN")["dispositions"][0]["deniedLostCad"], 1000.0);
+    assert_eq!(position("VCN")["dispositions"][0]["reportableGainCad"], 0.0);
 
     let issues = report["issues"].as_array().unwrap();
     assert_eq!(issues.len(), 1);

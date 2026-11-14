@@ -50,8 +50,18 @@ pub struct PositionReport {
     pub units: Decimal,
     pub acb_total_cad: Decimal,
     pub acb_per_unit_cad: Option<Decimal>,
-    pub dispositions: Vec<DispositionRecord>,
+    pub dispositions: Vec<DispositionReport>,
     pub deemed_gains: Vec<DeemedGain>,
+}
+
+/// A disposition with the gain or loss it puts on the return.
+#[derive(Debug, Clone, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct DispositionReport {
+    #[serde(flatten)]
+    pub record: DispositionRecord,
+    /// The loss less its denied part, or the gain: what Schedule 3 shows.
+    pub reportable_gain_cad: Decimal,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
@@ -154,7 +164,14 @@ pub async fn tax_report(
             units: ledger.pool.units(),
             acb_total_cad: ledger.pool.total_cad(),
             acb_per_unit_cad: ledger.pool.per_unit_cad(),
-            dispositions: ledger.dispositions.clone(),
+            dispositions: ledger
+                .dispositions
+                .iter()
+                .map(|record| DispositionReport {
+                    record: record.clone(),
+                    reportable_gain_cad: record.reportable_gain_cad(),
+                })
+                .collect(),
             deemed_gains: ledger.deemed_gains.clone(),
         });
     }

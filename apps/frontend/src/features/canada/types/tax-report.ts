@@ -57,6 +57,8 @@ export interface TaxDisposition {
   deniedAddedToAcbCad: number;
   /** Denied and gone for good: the shares were kept in a registered plan. */
   deniedLostCad: number;
+  /** The loss less its denied part, or the gain: what Schedule 3 shows. */
+  reportableGainCad: number;
   provisional: boolean;
   needsReview: boolean;
 }

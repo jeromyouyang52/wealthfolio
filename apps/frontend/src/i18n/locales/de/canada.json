@@ -153,5 +153,37 @@
       "clear": "Wert entfernen",
       "save_failed": "Der Wert konnte nicht gespeichert werden."
     }
+  },
+  "statement": {
+    "open": "Jahresaufstellung",
+    "title": "Aufstellung der Kapitalgewinne",
+    "heading": "Aufstellung der Kapitalgewinne {{year}}",
+    "prepared_on": "Erstellt am {{date}}",
+    "in_cad": "Beträge in kanadischen Dollar",
+    "summary": "Übersicht",
+    "summary_provisional": "Dieses Jahr enthält einen vorläufigen Verlust: Die Zahlen können sich noch ändern.",
+    "summary_review": "Dieses Jahr enthält einen versagten Verlust, der auf Anteile innerhalb und außerhalb registrierter Pläne aufgeteilt wurde. Klären Sie das mit einer Steuerberatung.",
+    "dispositions": "Veräußerungen",
+    "nothing": "Keine Veräußerungen in {{year}}.",
+    "proceeds": "Erlös abzüglich Verkaufskosten",
+    "gain_before_rule": "Gewinn oder Verlust vor der Superficial-Loss-Regel",
+    "denied": "Versagter Verlust",
+    "reportable": "Zu meldender Gewinn oder Verlust",
+    "note": "Hinweis",
+    "note_provisional": "Vorläufig: Ein Rückkauf des Wertpapiers innerhalb von 30 Tagen nach dem Verkauf kann diesen Verlust noch versagen.",
+    "note_review": "Mit einer Steuerberatung prüfen: Der versagte Verlust wurde auf Anteile innerhalb und außerhalb registrierter Pläne aufgeteilt.",
+    "left_out_warning": "Diese Wertpapiere sind in keiner der Zahlen oben enthalten. Berechnen Sie sie vor der Steuererklärung gesondert.",
+    "how_to_report": "Tragen Sie jede Veräußerung in Schedule 3 im Abschnitt für börsengehandelte Aktien, Investmentfondsanteile und andere Aktien ein. Der Erlös hier ist bereits um Provisionen gemindert; tragen Sie also keine Kosten ein, oder weisen Sie die Provision gesondert aus, wenn Ihre Bescheinigung den Bruttoerlös zeigt. Ein positiver steuerpflichtiger Betrag gehört in Zeile 12700 Ihrer Erklärung; ein Nettoverlust wird dort nicht eingetragen, die CRA vermerkt ihn für andere Jahre.",
+    "method": "Die Kosten sind die angepasste Kostenbasis, gemittelt über alle nicht registrierten Konten dieser Person. Fremdwährungsbeträge sind zum Tageskurs der Bank of Canada am Tag jeder Transaktion umgerechnet. Durch die Superficial-Loss-Regel versagte Verluste sind nicht abgezogen.",
+    "csv_holder": "Inhaber",
+    "csv_prepared_on": "Erstellt am",
+    "csv_currency": "Währung",
+    "export_csv": "CSV herunterladen",
+    "print": "Drucken oder als PDF sichern",
+    "print_hint": "Für ein PDF wählen Sie Drucken und als Ziel „Als PDF speichern“.",
+    "year": "Jahr",
+    "holder": "Inhaber",
+    "empty": "Noch keine Kapitalgewinne oder -verluste zu melden.",
+    "export_failed": "Die Aufstellung konnte nicht exportiert werden."
   }
 }

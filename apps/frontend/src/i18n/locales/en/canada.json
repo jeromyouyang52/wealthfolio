@@ -153,5 +153,37 @@
       "clear": "Remove figure",
       "save_failed": "The figure could not be saved."
     }
+  },
+  "statement": {
+    "open": "Annual statement",
+    "title": "Capital gains statement",
+    "heading": "Capital gains statement for {{year}}",
+    "prepared_on": "Prepared on {{date}}",
+    "in_cad": "Amounts in Canadian dollars",
+    "summary": "Summary",
+    "summary_provisional": "This year includes a provisional loss: the figures can still change.",
+    "summary_review": "This year includes a denied loss split between registered and non-registered shares. Check it with an accountant.",
+    "dispositions": "Dispositions",
+    "nothing": "No dispositions in {{year}}.",
+    "proceeds": "Proceeds, net of selling costs",
+    "gain_before_rule": "Gain or loss before the superficial loss rule",
+    "denied": "Denied loss",
+    "reportable": "Gain or loss to report",
+    "note": "Note",
+    "note_provisional": "Provisional: buying the security back within 30 days of the sale can still deny this loss.",
+    "note_review": "Check with an accountant: the denied loss was split between shares inside and outside registered plans.",
+    "left_out_warning": "These securities are in none of the figures above. Work them out separately before you file.",
+    "how_to_report": "List each disposition on Schedule 3, in the section for publicly traded shares, mutual fund units and other shares. The proceeds here are already net of commissions, so enter no outlays, or split the commission out if your slip shows gross proceeds. A positive taxable amount goes on line 12700 of your return; a net loss is not entered there, and the CRA records it for other years.",
+    "method": "Cost is the adjusted cost base averaged across all of this holder's non-registered accounts. Foreign-currency amounts use the Bank of Canada daily rate of each trade's day. Losses denied by the superficial loss rule are not deducted.",
+    "csv_holder": "Holder",
+    "csv_prepared_on": "Prepared on",
+    "csv_currency": "Currency",
+    "export_csv": "Download CSV",
+    "print": "Print or save as PDF",
+    "print_hint": "To save a PDF, choose Print and pick Save as PDF as the destination.",
+    "year": "Year",
+    "holder": "Holder",
+    "empty": "No capital gains or losses to report yet.",
+    "export_failed": "The statement could not be exported."
   }
 }

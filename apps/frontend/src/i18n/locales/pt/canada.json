@@ -153,5 +153,37 @@
       "clear": "Remover valor",
       "save_failed": "Não foi possível salvar o valor."
     }
+  },
+  "statement": {
+    "open": "Demonstrativo anual",
+    "title": "Demonstrativo de ganhos de capital",
+    "heading": "Demonstrativo de ganhos de capital {{year}}",
+    "prepared_on": "Preparado em {{date}}",
+    "in_cad": "Valores em dólares canadenses",
+    "summary": "Resumo",
+    "summary_provisional": "Este ano inclui uma perda provisória: os valores ainda podem mudar.",
+    "summary_review": "Este ano inclui uma perda negada dividida entre ações dentro e fora de planos registrados. Confirme com um contador.",
+    "dispositions": "Alienações",
+    "nothing": "Nenhuma alienação em {{year}}.",
+    "proceeds": "Produto, líquido de custos de venda",
+    "gain_before_rule": "Ganho ou perda antes da regra de perda superficial",
+    "denied": "Perda negada",
+    "reportable": "Ganho ou perda a declarar",
+    "note": "Observação",
+    "note_provisional": "Provisório: recomprar o título até 30 dias após a venda ainda pode negar esta perda.",
+    "note_review": "Confirme com um contador: a perda negada foi dividida entre ações dentro e fora de planos registrados.",
+    "left_out_warning": "Estes títulos não estão em nenhum dos valores acima. Calcule-os à parte antes de declarar.",
+    "how_to_report": "Lance cada alienação no Schedule 3, na seção de ações negociadas em bolsa, cotas de fundos mútuos e outras ações. O produto aqui já desconta as comissões; por isso, não informe despesas, ou separe a comissão se o seu informe mostrar o produto bruto. Um valor tributável positivo vai na linha 12700 da sua declaração; uma perda líquida não é lançada ali, e a CRA a registra para outros anos.",
+    "method": "O custo é o custo base ajustado, em média, em todas as contas não registradas deste titular. Valores em moeda estrangeira usam a cotação diária do Banco do Canadá do dia de cada operação. Perdas negadas pela regra de perda superficial não são deduzidas.",
+    "csv_holder": "Titular",
+    "csv_prepared_on": "Preparado em",
+    "csv_currency": "Moeda",
+    "export_csv": "Baixar CSV",
+    "print": "Imprimir ou salvar em PDF",
+    "print_hint": "Para salvar em PDF, escolha Imprimir e selecione Salvar como PDF como destino.",
+    "year": "Ano",
+    "holder": "Titular",
+    "empty": "Ainda não há ganhos ou perdas de capital a declarar.",
+    "export_failed": "Não foi possível exportar o demonstrativo."
   }
 }

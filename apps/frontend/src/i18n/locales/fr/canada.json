@@ -153,5 +153,37 @@
       "clear": "Supprimer le chiffre",
       "save_failed": "Le chiffre n'a pas pu être enregistré."
     }
+  },
+  "statement": {
+    "open": "Relevé annuel",
+    "title": "Relevé des gains en capital",
+    "heading": "Relevé des gains en capital {{year}}",
+    "prepared_on": "Préparé le {{date}}",
+    "in_cad": "Montants en dollars canadiens",
+    "summary": "Sommaire",
+    "summary_provisional": "Cette année comprend une perte provisoire : les chiffres peuvent encore changer.",
+    "summary_review": "Cette année comprend une perte refusée répartie entre des actions dans et hors des régimes enregistrés. Vérifiez-la avec un comptable.",
+    "dispositions": "Dispositions",
+    "nothing": "Aucune disposition en {{year}}.",
+    "proceeds": "Produit, net des frais de vente",
+    "gain_before_rule": "Gain ou perte avant la règle des pertes apparentes",
+    "denied": "Perte refusée",
+    "reportable": "Gain ou perte à déclarer",
+    "note": "Note",
+    "note_provisional": "Provisoire : racheter le titre dans les 30 jours suivant la vente peut encore faire refuser cette perte.",
+    "note_review": "À vérifier avec un comptable : la perte refusée a été répartie entre des actions dans et hors des régimes enregistrés.",
+    "left_out_warning": "Ces titres ne figurent dans aucun des chiffres ci-dessus. Calculez-les séparément avant de produire votre déclaration.",
+    "how_to_report": "Inscrivez chaque disposition à l'annexe 3, dans la section des actions cotées en bourse, unités de fonds communs de placement et autres actions. Le produit indiqué ici est déjà net des commissions : n'inscrivez donc aucuns frais, ou séparez la commission si votre feuillet indique le produit brut. Un montant imposable positif va à la ligne 12700 de votre déclaration; une perte nette n'y est pas inscrite, l'ARC la conserve pour d'autres années.",
+    "method": "Le coût est le prix de base rajusté calculé en moyenne sur tous les comptes non enregistrés de ce titulaire. Les montants en devises sont convertis au taux quotidien de la Banque du Canada du jour de chaque opération. Les pertes refusées par la règle des pertes apparentes ne sont pas déduites.",
+    "csv_holder": "Titulaire",
+    "csv_prepared_on": "Préparé le",
+    "csv_currency": "Devise",
+    "export_csv": "Télécharger le CSV",
+    "print": "Imprimer ou enregistrer en PDF",
+    "print_hint": "Pour obtenir un PDF, choisissez Imprimer, puis Enregistrer au format PDF comme destination.",
+    "year": "Année",
+    "holder": "Titulaire",
+    "empty": "Aucun gain ni aucune perte en capital à déclarer pour l'instant.",
+    "export_failed": "Le relevé n'a pas pu être exporté."
   }
 }

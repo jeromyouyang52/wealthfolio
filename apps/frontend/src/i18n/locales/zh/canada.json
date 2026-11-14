@@ -153,5 +153,37 @@
       "clear": "删除数字",
       "save_failed": "数字保存失败。"
     }
+  },
+  "statement": {
+    "open": "年度报表",
+    "title": "资本利得报表",
+    "heading": "{{year}} 年资本利得报表",
+    "prepared_on": "生成于 {{date}}",
+    "in_cad": "金额以加元计",
+    "summary": "汇总",
+    "summary_provisional": "本年包含暂定亏损，数字仍可能变化。",
+    "summary_review": "本年有一笔被否认的亏损分摊到了注册和非注册账户的股份上，请找会计师确认。",
+    "dispositions": "卖出记录",
+    "nothing": "{{year}} 年没有卖出记录。",
+    "proceeds": "卖出所得（已扣卖出费用）",
+    "gain_before_rule": "适用表面亏损规则前的利得或亏损",
+    "denied": "被否认的亏损",
+    "reportable": "应申报的利得或亏损",
+    "note": "备注",
+    "note_provisional": "暂定：卖出后 30 天内买回该证券，这笔亏损仍可能被否认。",
+    "note_review": "请找会计师确认：被否认的亏损分摊到了注册计划内外的股份上。",
+    "left_out_warning": "以下证券没有计入上面任何数字，报税前请另行计算。",
+    "how_to_report": "每笔卖出填在 Schedule 3 的“上市股票、共同基金单位和其他股份”一栏。这里的卖出所得已扣除佣金，所以费用栏填 0；如果你的税单显示的是毛额，也可以把佣金单独列出。应税金额为正数时填在税表第 12700 行；净亏损不填在那里，CRA 会记录下来留给其他年份抵扣。",
+    "method": "成本是这位持有人所有非注册账户合并计算的调整后成本基础（ACB）。外币金额按每笔交易当天的加拿大银行汇率折算。被表面亏损规则否认的亏损不扣除。",
+    "csv_holder": "持有人",
+    "csv_prepared_on": "生成日期",
+    "csv_currency": "货币",
+    "export_csv": "下载 CSV",
+    "print": "打印或存为 PDF",
+    "print_hint": "要存成 PDF，点“打印”，再把目标选为“存储为 PDF”。",
+    "year": "年份",
+    "holder": "持有人",
+    "empty": "暂时没有需要申报的资本利得或亏损。",
+    "export_failed": "报表导出失败。"
   }
 }
